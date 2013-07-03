@@ -37,26 +37,26 @@ public class LocaleFilter extends OncePerRequestFilter {
         String locale = request.getParameter("locale");
         Locale preferredLocale = null;
 
-        if (locale != null) {
-            int indexOfUnderscore = locale.indexOf('_');
-            if (indexOfUnderscore != -1) {
-                String language = locale.substring(0, indexOfUnderscore);
-                String country = locale.substring(indexOfUnderscore + 1);
-                preferredLocale = new Locale(language, country);
-            } else {
-                preferredLocale = new Locale(locale);
-            }
+        if (locale ==  null)
+            locale = "pt_BR";
+
+
+        int indexOfUnderscore = locale.indexOf('_');
+        if (indexOfUnderscore != -1) {
+            String language = locale.substring(0, indexOfUnderscore);
+            String country = locale.substring(indexOfUnderscore + 1);
+            preferredLocale = new Locale(language, country);
+        } else {
+            preferredLocale = new Locale(locale);
         }
+
 
         HttpSession session = request.getSession(false);
 
         if (session != null) {
-            if (preferredLocale == null) {
-                preferredLocale = (Locale) session.getAttribute(Constants.PREFERRED_LOCALE_KEY);
-            } else {
-                session.setAttribute(Constants.PREFERRED_LOCALE_KEY, preferredLocale);
-                Config.set(session, Config.FMT_LOCALE, preferredLocale);
-            }
+
+            session.setAttribute(Constants.PREFERRED_LOCALE_KEY, preferredLocale);
+            Config.set(session, Config.FMT_LOCALE, preferredLocale);
 
             if (preferredLocale != null && !(request instanceof LocaleRequestWrapper)) {
                 request = new LocaleRequestWrapper(request, preferredLocale);
