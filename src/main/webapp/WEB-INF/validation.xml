@@ -57,5 +57,13 @@
                 <arg key="user.passwordHint"/>
             </field>
         </form>
+        <form name="project">
+            <field property="name" depends="required">
+                <arg key="project.name"/>
+            </field>
+            <field property="description" depends="required">
+                <arg key="project.description"/>
+            </field>
+        </form>
     </formset>
 </form-validation>
