@@ -20,6 +20,8 @@
             <p><fmt:message key="userProfile.message"/></p>
         </c:otherwise>
     </c:choose>
+    <br />
+    <img id="avatar" src="" style="height:80px; width:80px;"/>
 </div>
 <div class="span7">
     <spring:bind path="user.*">
@@ -235,6 +237,33 @@
 
 <c:set var="scripts" scope="request">
 <script type="text/javascript">
+    var hash;
+
+    if ($('#email').val() != '')
+    {
+        hash = calcMD5($('#email').val());
+        $('#avatar').attr('src','https://gravatar.com/avatar/'+hash);
+    }
+    else
+    {
+        $('#avatar').attr('src',"<c:url value="/images/user.jpg"/>");
+    }
+
+    $(document).ready(function(){
+        $('#email').focusout(function(){
+            if ($('#email').val() != '')
+            {
+                hash = calcMD5($('#email').val());
+                $('#avatar').attr('src','https://gravatar.com/avatar/'+hash);
+            }
+            else
+            {
+                $('#avatar').attr('src',"<c:url value="/images/user.jpg"/>");
+            }
+        });
+    });
+
+
     function passwordChanged(passwordField) {
         if (passwordField.id == "password") {
             var origPassword = "${user.password}";
@@ -257,4 +286,5 @@ function onFormSubmit(theForm) {
 
 <v:javascript formName="user" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+<script type="text/javascript" src="<c:url value="/scripts/MD5.js"/>"></script>
 

@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="control-group">
-            <appfuse:label styleClass="control-label" key="departament.description"/>
+            <appfuse:label styleClass="control-label" key="departament.activities"/>
             <div class="controls">
                 <!--form:select path="activities" id="activities" items="${activities}" multiple="true" /-->
                 <form:select path="activities" id="activities" multiple="true">
