@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp" %>
 
 <head>
-    <title><fmt:message key="login.title"/></title>
+    <title><fmt:message key="login.login.title"/></title>
     <meta name="menu" content="Login"/>
 </head>
 <body id="login">
@@ -9,7 +9,7 @@
 <form method="post" id="loginForm" action="<c:url value='/j_security_check'/>"
     onsubmit="saveUsername(this);return validateForm(this)" class="form-signin" autocomplete="off">
     <h2 class="form-signin-heading">
-        <fmt:message key="login.heading"/>
+        <fmt:message key="login.login.heading"/>
     </h2>
 <c:if test="${param.error != null}">
     <div class="alert alert-error fade in">

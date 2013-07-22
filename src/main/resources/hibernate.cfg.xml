@@ -9,5 +9,7 @@
         <mapping class="org.appfuse.model.User"/>
         <mapping class="org.appfuse.model.Role"/>
         <mapping class="br.tcc.webapp.model.Project"/>
+        <mapping class="br.tcc.webapp.model.Activity"/>
+        <mapping class="br.tcc.webapp.model.Departament"/>
     </session-factory>
 </hibernate-configuration>
