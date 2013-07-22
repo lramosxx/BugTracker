@@ -1,45 +1,52 @@
 <%--
   Created by IntelliJ IDEA.
-  User: luiza
-  Date: 15/07/13
-  Time: 23:53
+  User: Gleison
+  Date: 19/07/13
+  Time: 20:04
   To change this template use File | Settings | File Templates.
 --%>
 
 <%@ include file="/common/taglibs.jsp"%>
 <head>
-    <title><fmt:message key="projectDetail.title"/></title>
-    <meta name="menu" content="ProjectMenu"/>
+    <title><fmt:message key="departamentDetail.title"/></title>
+    <meta name="menu" content="DepartamentMenu"/>
 </head>
 
 <div class="span3">
-    <h2><fmt:message key='projectDetail.heading'/></h2>
+    <h2><fmt:message key='departamentDetail.heading'/></h2>
 </div>
 <div class="span7">
     <form:errors path="*" cssClass="alert alert-error fade in" element="div"/>
-    <form:form commandName="project" method="post" action="/admin/projectform" id="projectForm"
+    <form:form commandName="departament" method="post" action="/admin/departamentform" id="departamentForm"
                cssClass="well form-horizontal">
         <form:hidden path="id"/>
 
         <div class="control-group">
-            <appfuse:label styleClass="control-label" key="project.name"/>
+            <appfuse:label styleClass="control-label" key="departament.name"/>
             <div class="controls">
-                <form:input path="name" id="name" maxlength="100"/>
+                <form:input path="name" id="name" maxlength="100" class="span11"/>
                 <form:errors path="name" cssClass="help-inline"/>
             </div>
         </div>
         <div class="control-group">
-            <appfuse:label styleClass="control-label" key="project.description"/>
+            <appfuse:label styleClass="control-label" key="departament.activities"/>
             <div class="controls">
-                <form:input path="description" id="description" maxlength="200"/>
-                <form:errors path="description" cssClass="help-inline"/>
+                <!--form:select path="activities" id="activities" items="${activities}" multiple="true" /-->
+                <div>
+                <form:select path="activities" id="activities" multiple="true" class="span11">
+                    <c:forEach items="${newActivities}" var="a">
+                        <form:option value="${a.id}" label="${a.name}"/>
+                    </c:forEach>
+                </form:select>
+                <form:errors path="activities" cssClass="help-inline"/>
+                </div>
             </div>
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary" name="save">
                 <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
             </button>
-            <c:if test="${not empty project.id}">
+            <c:if test="${not empty departament.id}">
                 <button type="submit" class="btn" name="delete">
                     <i class="icon-trash"></i> <fmt:message key="button.delete"/>
                 </button>
@@ -52,6 +59,6 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $("input[type='text']:visible:enabled:first", document.forms['projectForm']).focus();
+        $("input[type='text']:visible:enabled:first", document.forms['departamentForm']).focus();
     });
 </script>

@@ -20,6 +20,8 @@
             <p><fmt:message key="userProfile.message"/></p>
         </c:otherwise>
     </c:choose>
+    <br />
+    <img id="avatar" src="" style="height:80px; width:80px;" class="img-polaroid"/>
 </div>
 <div class="span7">
     <spring:bind path="user.*">
@@ -172,7 +174,7 @@
                     <fmt:message key="user.enabled"/>
                 </label>
 
-                <label class="checkbox inline">
+                <!--label class="checkbox inline">
                     <form:checkbox path="accountExpired" id="accountExpired"/>
                     <fmt:message key="user.accountExpired"/>
                 </label>
@@ -185,7 +187,7 @@
                 <label class="checkbox inline">
                     <form:checkbox path="credentialsExpired" id="credentialsExpired"/>
                     <fmt:message key="user.credentialsExpired"/>
-                </label>
+                </label-->
             </div>
         </fieldset>
         <fieldset class="control-group">
@@ -235,6 +237,18 @@
 
 <c:set var="scripts" scope="request">
 <script type="text/javascript">
+    var hash;
+    hash = calcMD5($('#email').val());
+    $('#avatar').attr('src','https://gravatar.com/avatar/'+hash+'?d=mm');
+
+    $(document).ready(function(){
+        $('#email').focusout(function(){
+            hash = calcMD5($('#email').val());
+            $('#avatar').attr('src','https://gravatar.com/avatar/'+hash+'?d=mm');
+        });
+    });
+
+
     function passwordChanged(passwordField) {
         if (passwordField.id == "password") {
             var origPassword = "${user.password}";
@@ -257,4 +271,5 @@ function onFormSubmit(theForm) {
 
 <v:javascript formName="user" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+<script type="text/javascript" src="<c:url value="/scripts/MD5.js"/>"></script>
 

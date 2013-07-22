@@ -65,5 +65,16 @@
                 <arg key="project.description"/>
             </field>
         </form>
+        <form name="activity">
+            <field property="name" depends="required">
+                <arg key="activity.name"/>
+            </field>
+            <field property="hoursToYellow" depends="required">
+                <arg key="activity.hoursToYellow"/>
+            </field>
+            <field property="hoursToRed" depends="required">
+                <arg key="activity.hoursToRed"/>
+            </field>
+        </form>
     </formset>
 </form-validation>

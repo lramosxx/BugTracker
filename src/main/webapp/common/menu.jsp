@@ -5,7 +5,7 @@
 <ul class="nav">
     <c:if test="${empty pageContext.request.remoteUser}">
         <li class="active">
-            <a href="<c:url value="/login"/>"><fmt:message key="login.title"/></a>
+            <a href="<c:url value="/login"/>"><fmt:message key="login.login.title"/></a>
         </li>
     </c:if>
     <menu:displayMenu name="MainMenu"/>

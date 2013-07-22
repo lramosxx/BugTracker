@@ -33,6 +33,7 @@
                 </button>
                 <a class="brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a>
                 <%@ include file="/common/menu.jsp" %>
+                <b><span id="userName" style="float:right;margin-right:20px;">${pageContext.request.remoteUser}</span></b><br/>
                 <c:if test="${pageContext.request.locale.language ne 'en'}">
                     <div id="switchLocale"><a href="<c:url value='/?locale=en'/>">
                         <fmt:message key="webapp.name"/> in English</a>
@@ -68,5 +69,6 @@
         </span>
     </div>
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
+
 </body>
 </html>
