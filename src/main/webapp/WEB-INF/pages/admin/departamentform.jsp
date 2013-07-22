@@ -24,7 +24,7 @@
         <div class="control-group">
             <appfuse:label styleClass="control-label" key="departament.name"/>
             <div class="controls">
-                <form:input path="name" id="name" maxlength="50"/>
+                <form:input path="name" id="name" maxlength="100" class="span11"/>
                 <form:errors path="name" cssClass="help-inline"/>
             </div>
         </div>
@@ -32,12 +32,14 @@
             <appfuse:label styleClass="control-label" key="departament.activities"/>
             <div class="controls">
                 <!--form:select path="activities" id="activities" items="${activities}" multiple="true" /-->
-                <form:select path="activities" id="activities" multiple="true">
+                <div>
+                <form:select path="activities" id="activities" multiple="true" class="span11">
                     <c:forEach items="${newActivities}" var="a">
                         <form:option value="${a.id}" label="${a.name}"/>
                     </c:forEach>
                 </form:select>
                 <form:errors path="activities" cssClass="help-inline"/>
+                </div>
             </div>
         </div>
         <div class="form-actions">

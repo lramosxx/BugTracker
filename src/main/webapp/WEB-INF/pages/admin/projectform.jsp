@@ -24,14 +24,14 @@
         <div class="control-group">
             <appfuse:label styleClass="control-label" key="project.name"/>
             <div class="controls">
-                <form:input path="name" id="name" maxlength="50"/>
+                <form:input path="name" id="name" maxlength="100"/>
                 <form:errors path="name" cssClass="help-inline"/>
             </div>
         </div>
         <div class="control-group">
             <appfuse:label styleClass="control-label" key="project.description"/>
             <div class="controls">
-                <form:input path="description" id="description" maxlength="50"/>
+                <form:input path="description" id="description" maxlength="200"/>
                 <form:errors path="description" cssClass="help-inline"/>
             </div>
         </div>

@@ -24,7 +24,7 @@
         <div class="control-group">
             <appfuse:label styleClass="control-label" key="activity.name"/>
             <div class="controls">
-                <form:input path="name" id="name" maxlength="50"/>
+                <form:input path="name" id="name" maxlength="100"/>
                 <form:errors path="name" cssClass="help-inline"/>
             </div>
         </div>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="control-group">
-            <appfuse:label styleClass="control-label" key="activity.hoursToYellow"/>
+            <appfuse:label styleClass="control-label" key="activity.hoursToRed"/>
             <div class="controls">
                 <form:input path="hoursToRed" id="hoursToRed" maxlength="5"/>
                 <form:errors path="hoursToRed" cssClass="help-inline"/>
