@@ -43,7 +43,6 @@
                         paramId="id" paramProperty="id" titleKey="departament.id"/>
         <display:column property="id" media="csv excel xml pdf" titleKey="departament.id"/>
         <display:column property="name" sortable="true" titleKey="departament.name"/>
-        <display:column property="activities" sortable="true" titleKey="departament.activities"/>
         <display:setProperty name="paging.banner.item_name"><fmt:message key="departamentList.departament"/></display:setProperty>
         <display:setProperty name="paging.banner.items_name"><fmt:message key="departamentList.departaments"/></display:setProperty>
         <display:setProperty name="export.excel.filename"><fmt:message key="departamentList.title"/>.xls</display:setProperty>

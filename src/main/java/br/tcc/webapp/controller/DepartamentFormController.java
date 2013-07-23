@@ -4,7 +4,6 @@ import br.tcc.webapp.model.Activity;
 import br.tcc.webapp.model.Departament;
 import br.tcc.webapp.service.ActivityManager;
 import br.tcc.webapp.service.DepartamentManager;
-import org.apache.avro.generic.GenericData;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +29,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/departamentform*")
-public class DepartamentFormController extends BaseFormController  {
+public class DepartamentFormController extends BaseFormController {
     @Autowired
     private DepartamentManager departamentManager;
     @Autowired
@@ -47,24 +46,12 @@ public class DepartamentFormController extends BaseFormController  {
             throws Exception {
         String id = request.getParameter("id");
 
-        if (!StringUtils.isBlank(id)) {
+        request.setAttribute("newActivities", activityManager.getActivities());
+
+        if (!StringUtils.isBlank(id))
             return departamentManager.get(new Long(id));
-        }
-
-        Departament dept = new Departament();
-        Map< String, String > activityMap = new HashMap();
-        List<Activity> activities = activityManager.getActivities();
-
-        for (int i =0; i < activities.size(); i++)
-        {
-            activityMap.put(activities.get(i).getId().toString(),activities.get(i).getName());
-        }
-
-        request.setAttribute("newActivities",activityManager.getActivities());
-
-        dept.setActivities(activityManager.getActivities());
-
-        return dept;
+        else
+            return  new Departament();
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -76,7 +63,7 @@ public class DepartamentFormController extends BaseFormController  {
         }
 
         //if (request.getParameter("activities") != null){
-          //  String activities = request.getParameter("activities");
+        //  String activities = request.getParameter("activities");
         //}
 
         if (validator != null) { // validator is null during testing
