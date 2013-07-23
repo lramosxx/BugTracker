@@ -31,11 +31,16 @@
         <div class="control-group">
             <appfuse:label styleClass="control-label" key="departament.activities"/>
             <div class="controls">
-                <!--form:select path="activities" id="activities" items="${activities}" multiple="true" /-->
                 <div>
                 <form:select path="activities" id="activities" multiple="true" class="span11">
                     <c:forEach items="${newActivities}" var="a">
-                        <form:option value="${a.id}" label="${a.name}"/>
+                        <c:set var="contains" value="false" />
+                        <c:forEach var="suba" items="${departament.activities}">
+                            <c:if test="${suba.id eq a.id}">
+                                <c:set var="contains" value="true" />
+                            </c:if>
+                        </c:forEach>
+                        <option value="${a.id}" ${contains ? 'selected' : ''}>${a.name}</option>
                     </c:forEach>
                 </form:select>
                 <form:errors path="activities" cssClass="help-inline"/>

@@ -1,5 +1,7 @@
 package br.tcc.webapp.controller;
 
+import br.tcc.webapp.model.Activity;
+import br.tcc.webapp.util.binder.ActivityCustomEditor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
@@ -54,6 +56,9 @@ public class BaseFormController implements ServletContextAware {
 
     @Autowired(required = false)
     Validator validator;
+
+    @Autowired
+    ActivityCustomEditor activityCustomEditor;
 
     @Autowired
     public void setMessages(MessageSource messageSource) {
@@ -160,11 +165,14 @@ public class BaseFormController implements ServletContextAware {
                                     new CustomNumberEditor(Long.class, null, true));
         binder.registerCustomEditor(byte[].class,
                                     new ByteArrayMultipartFileEditor());
+        binder.registerCustomEditor(Activity.class, null,
+                new CustomNumberEditor(Long.class, null, true));
         SimpleDateFormat dateFormat = 
             new SimpleDateFormat(getText("date.format", request.getLocale()));
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, null, 
                                     new CustomDateEditor(dateFormat, true));
+        binder.registerCustomEditor(Activity.class, null, activityCustomEditor);
     }
 
     /**
