@@ -3,6 +3,8 @@ package br.tcc.webapp.controller;
 import br.tcc.webapp.model.Project;
 import br.tcc.webapp.service.ProjectManager;
 import org.apache.commons.lang.StringUtils;
+import org.appfuse.model.User;
+import org.appfuse.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -27,6 +30,8 @@ import java.util.Locale;
 public class ProjectFormController extends BaseFormController  {
     @Autowired
     private ProjectManager projectManager;
+    @Autowired
+    private UserManager userManger;
 
     public ProjectFormController() {
         setCancelView("redirect:projects");
@@ -38,6 +43,8 @@ public class ProjectFormController extends BaseFormController  {
     protected Project showForm(HttpServletRequest request)
             throws Exception {
         String id = request.getParameter("id");
+
+        request.setAttribute("newUsers", userManger.getUsers());
 
         if (!StringUtils.isBlank(id)) {
             return projectManager.get(new Long(id));

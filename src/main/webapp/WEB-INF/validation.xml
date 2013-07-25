@@ -76,5 +76,10 @@
                 <arg key="activity.hoursToRed"/>
             </field>
         </form>
+        <form name="departament">
+            <field property="name" depends="required">
+                <arg key="activity.name"/>
+            </field>
+        </form>
     </formset>
 </form-validation>

@@ -1,8 +1,11 @@
 package br.tcc.webapp.model;
 
 import org.appfuse.model.BaseObject;
+import org.appfuse.model.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +22,7 @@ public class Project extends BaseObject {
     private Long id;
     private String name;
     private String description;
+    private List<User> users;
 
 // --------------------- GETTER / SETTER METHODS ---------------------
 
@@ -49,6 +53,15 @@ public class Project extends BaseObject {
         this.name = name;
     }
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
 // ------------------------ CANONICAL METHODS ------------------------
 
     @Override
@@ -77,6 +90,7 @@ public class Project extends BaseObject {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", users='" + users + '\'' +
                 '}';
     }
 }
