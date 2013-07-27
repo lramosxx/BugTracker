@@ -1,9 +1,7 @@
 package br.tcc.webapp.controller;
 
-import org.appfuse.Constants;
+import br.tcc.webapp.service.StatusManager;
 import org.appfuse.dao.SearchException;
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
@@ -13,38 +11,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-/**
- * Simple class to retrieve a list of users from the database.
- * <p/>
- * <p>
- * <a href="UserController.java.html"><i>View Source</i></a>
- * </p>
- *
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- */
 @Controller
-@RequestMapping("/admin/users*")
-public class UserController {
-    private UserManager userManager = null;
+@RequestMapping("/admin/status*")
+public class StatusController {
+    private StatusManager statusManager = null;
 
     @Autowired
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
+    public void setStatusManager(StatusManager statusManager) {
+        this.statusManager = statusManager;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest(@RequestParam(required = false, value = "q") String query) throws Exception {
         Model model = new ExtendedModelMap();
         try {
-            model.addAttribute(Constants.USER_LIST, userManager.search(query));
+            model.addAttribute("statusList", statusManager.search(query));
         } catch (SearchException se) {
             model.addAttribute("searchError", se.getMessage());
-            model.addAttribute(userManager.getUsers());
+            model.addAttribute(statusManager.getStatus());
         }
-        return new ModelAndView("admin/userList", model.asMap());
+        return new ModelAndView("admin/statusList", model.asMap());
     }
 }

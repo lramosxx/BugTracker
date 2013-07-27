@@ -1,33 +1,30 @@
 package br.tcc.webapp.model;
 
 import org.appfuse.model.BaseObject;
-import org.appfuse.model.User;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Created with IntelliJ IDEA.
- * User: luiza
- * Date: 15/07/13
- * Time: 17:37
+ * User: Gleison
+ * Date: 27/07/13
+ * Time: 27:55
  * To change this template use File | Settings | File Templates.
  */
-
 @Entity
-public class Project extends BaseObject {
-// ------------------------------ FIELDS ------------------------------
+public class Status extends BaseObject {
 
     private Long id;
-    private String name;
     private String description;
-    private List<User> users;
 
 // --------------------- GETTER / SETTER METHODS ---------------------
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     public Long getId() {
         return id;
     }
@@ -44,23 +41,6 @@ public class Project extends BaseObject {
         this.description = description;
     }
 
-    @Column(unique = true)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 
 // ------------------------ CANONICAL METHODS ------------------------
 
@@ -69,10 +49,10 @@ public class Project extends BaseObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Project project = (Project) o;
+        Status status = (Status) o;
 
-        if (!id.equals(project.id)) return false;
-        if (!name.equals(project.name)) return false;
+        if (!id.equals(status.id)) return false;
+        if (!description.equals(status.description)) return false;
 
         return true;
     }
@@ -80,17 +60,15 @@ public class Project extends BaseObject {
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "Status{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", users='" + users + '\'' +
                 '}';
     }
 }
