@@ -81,5 +81,10 @@
                 <arg key="activity.name"/>
             </field>
         </form>
+        <form name="status">
+            <field property="description" depends="required">
+                <arg key="status.description"/>
+            </field>
+        </form>
     </formset>
 </form-validation>

@@ -94,7 +94,7 @@
         });
 
         $("#btnRemoveUser").click(function(){
-                    removeUser();
+            removeUser();
         });
     });
 
