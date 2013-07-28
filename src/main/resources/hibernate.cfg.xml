@@ -11,5 +11,6 @@
         <mapping class="br.tcc.webapp.model.Project"/>
         <mapping class="br.tcc.webapp.model.Activity"/>
         <mapping class="br.tcc.webapp.model.Departament"/>
+        <mapping class="br.tcc.webapp.model.Status"/>
     </session-factory>
 </hibernate-configuration>
