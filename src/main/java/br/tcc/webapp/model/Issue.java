@@ -24,6 +24,8 @@ public class Issue extends BaseObject {
     private Activity activity = new Activity();
     private Status status =  new Status();
     private User reporter = new User();
+    private User assigned = new User();
+    private Project project = new Project();
     private Date expectedDate;
 
 // --------------------- GETTER / SETTER METHODS ---------------------
@@ -86,12 +88,30 @@ public class Issue extends BaseObject {
     }
 
     @OneToOne
+    public User getAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(User assigned) {
+        this.assigned = assigned;
+    }
+
+    @OneToOne
     public Status getStatus() {
         return status;
     }
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @OneToOne
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public String getSummary() {
@@ -131,6 +151,9 @@ public class Issue extends BaseObject {
                 ", activity=" + activity +
                 ", status=" + status +
                 ", reporter=" + reporter +
+                ", assigned=" + assigned +
+                ", status=" + status +
+                ", project=" + project +
                 ", expectedDate=" + expectedDate +
                 '}';
     }

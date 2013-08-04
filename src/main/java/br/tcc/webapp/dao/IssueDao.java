@@ -16,7 +16,11 @@ public interface IssueDao extends GenericDao<Issue, Long> {
 
     List<Issue> getIssues();
 
+    List<Issue> filterIssues(String idReporter, String idAssigned, String idProject, String summary, String idStatus);
+
     void removeIssue(Long issueId);
 
     Issue saveIssue(Issue issue);
+
+
 }

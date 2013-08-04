@@ -16,6 +16,8 @@ public interface IssueManager extends GenericManager<Issue, Long> {
 
     Issue getIssue(Long issueId);
 
+    List<Issue> filterIssues(String idReporter, String idAssigned, String idProject, String summary, String idStatus);
+
     List<Issue> getIssues();
 
     void removeIssue(Long issueId);

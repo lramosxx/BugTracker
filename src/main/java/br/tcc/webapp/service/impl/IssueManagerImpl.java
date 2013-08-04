@@ -4,6 +4,7 @@ import br.tcc.webapp.dao.IssueDao;
 import br.tcc.webapp.model.Issue;
 import br.tcc.webapp.service.IssueManager;
 import org.appfuse.service.impl.GenericManagerImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class IssueManagerImpl extends GenericManagerImpl<Issue, Long> implements
     IssueDao issueDao;
 
 // --------------------------- CONSTRUCTORS ---------------------------
-
+    @Autowired
     public IssueManagerImpl(IssueDao issueDao) {
         this.dao = issueDao;
         this.issueDao = issueDao;
@@ -37,6 +38,10 @@ public class IssueManagerImpl extends GenericManagerImpl<Issue, Long> implements
     @Override
     public List<Issue> getIssues() {
         return issueDao.getAllDistinct();
+    }
+    @Override
+    public List<Issue> filterIssues(String idReporter, String idAssigned, String idProject, String summary, String idStatus){
+        return issueDao.filterIssues(idReporter, idAssigned, idProject, summary, idStatus);
     }
 
     @Override

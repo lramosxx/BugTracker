@@ -32,6 +32,40 @@ public class IssueDaoHibernate extends GenericDaoHibernate<Issue, Long> implemen
     }
 
     @Override
+    public List<Issue> filterIssues(String idReporter, String idAssigned, String idProject, String summary, String idStatus) {
+        String query = "from Issue i where";
+        boolean idFirstTerm = true;
+
+        if ((idReporter == null || idReporter.isEmpty()) && (idAssigned == null || idAssigned.isEmpty()) && (idProject == null || idProject.isEmpty()))
+        {
+            Query qry = getSession().createQuery("from Issue i order by i.id");
+            return qry.list();
+        }
+        if (idReporter != null && !idReporter.isEmpty()){
+            query += " i.reporter.id = '" + idReporter + "'";
+            idFirstTerm = false;
+        }
+        if (idAssigned != null && !idAssigned.isEmpty()){
+            query += (!idFirstTerm) ? " and i.assigned.id = '" + idAssigned + "'" : " i.assigned.id = '" + idAssigned + "'";
+            idFirstTerm = false;
+        }
+        if (idProject != null && !idProject.isEmpty()){
+            query += (!idFirstTerm) ? " and i.project.id = '" + idProject + "'" : " i.project.id = '" + idProject + "'";
+            idFirstTerm = false;
+        }
+        if (summary != null && !summary.isEmpty()){
+            query += (!idFirstTerm) ? " and i.summary = '%" + summary + "%'" : " i.project.id = '" + summary + "'";
+            idFirstTerm = false;
+        }
+        if (idStatus != null && !idStatus.isEmpty()){
+            query += (!idFirstTerm) ? " and i.status.id = '" + idStatus + "'" : " i.status.id = '" + idStatus + "'";
+        }
+
+        Query qry = getSession().createQuery(query +" order by i.id");
+        return qry.list();
+    }
+
+    @Override
     public void removeIssue(Long issueId) {
         remove(issueId);
         getSession().flush();
