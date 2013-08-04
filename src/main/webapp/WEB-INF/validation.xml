@@ -86,5 +86,31 @@
                 <arg key="status.description"/>
             </field>
         </form>
+        <form name="issue">
+            <field property="summary" depends="required">
+                <arg key="issue.summary"/>
+            </field>
+            <field property="description" depends="required">
+                <arg key="issue.description"/>
+            </field>
+            <field property="departament" depends="required">
+                <arg key="issue.departament"/>
+            </field>
+            <field property="activity" depends="required">
+                <arg key="issue.activity"/>
+            </field>
+            <field property="project" depends="required">
+                <arg key="issue.project"/>
+            </field>
+            <field property="assigned" depends="required">
+                <arg key="issue.assigned"/>
+            </field>
+            <field property="status" depends="required">
+                <arg key="issue.status"/>
+            </field>
+            <field property="expectedDate" depends="required">
+                <arg key="issue.expectedDate"/>
+            </field>
+        </form>
     </formset>
 </form-validation>
