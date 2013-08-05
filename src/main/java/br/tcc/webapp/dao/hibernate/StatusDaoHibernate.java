@@ -31,7 +31,7 @@ public class StatusDaoHibernate extends GenericDaoHibernate<Status, Long> implem
 
     @Override
     public List<Status> getStatus() {
-        Query qry = getSession().createQuery("from Status s order by upper(s.name)");
+        Query qry = getSession().createQuery("from Status s order by upper(s.description)");
         return qry.list();
     }
 

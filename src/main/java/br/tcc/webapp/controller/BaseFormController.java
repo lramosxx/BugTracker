@@ -1,7 +1,13 @@
 package br.tcc.webapp.controller;
 
 import br.tcc.webapp.model.Activity;
+import br.tcc.webapp.model.Departament;
+import br.tcc.webapp.model.Project;
+import br.tcc.webapp.model.Status;
 import br.tcc.webapp.util.binder.ActivityCustomEditor;
+import br.tcc.webapp.util.binder.DepartamentCustomEditor;
+import br.tcc.webapp.util.binder.ProjectCustomEditor;
+import br.tcc.webapp.util.binder.StatusCustomEditor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
@@ -59,6 +65,15 @@ public class BaseFormController implements ServletContextAware {
 
     @Autowired
     ActivityCustomEditor activityCustomEditor;
+
+    @Autowired
+    StatusCustomEditor statusCustomEditor;
+
+    @Autowired
+    ProjectCustomEditor projectCustomEditor;
+
+    @Autowired
+    DepartamentCustomEditor departamentCustomEditor;
 
     @Autowired
     public void setMessages(MessageSource messageSource) {
@@ -167,12 +182,21 @@ public class BaseFormController implements ServletContextAware {
                                     new ByteArrayMultipartFileEditor());
         binder.registerCustomEditor(Activity.class, null,
                 new CustomNumberEditor(Long.class, null, true));
-        SimpleDateFormat dateFormat = 
+        binder.registerCustomEditor(Status.class, null,
+                new CustomNumberEditor(Long.class, null, true));
+        binder.registerCustomEditor(Project.class, null,
+                new CustomNumberEditor(Long.class, null, true));
+        binder.registerCustomEditor(Departament.class, null,
+                new CustomNumberEditor(Long.class, null, true));
+        SimpleDateFormat dateFormat =
             new SimpleDateFormat(getText("date.format", request.getLocale()));
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, null, 
                                     new CustomDateEditor(dateFormat, true));
         binder.registerCustomEditor(Activity.class, null, activityCustomEditor);
+        binder.registerCustomEditor(Status.class, null, statusCustomEditor);
+        binder.registerCustomEditor(Project.class, null, projectCustomEditor);
+        binder.registerCustomEditor(Departament.class, null, departamentCustomEditor);
     }
 
     /**
