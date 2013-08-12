@@ -33,11 +33,26 @@
     </form>
 
     <div id="actions" class="form-actions">
+        <div class="control-group" style="display:inline-block">
         <a class="btn btn-primary" href="<c:url value='/issueform'/>">
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+        </div>
+        <div class="control-group" style="display:inline-block">
         <a class="btn btn-primary" href="<c:url value='/issuesSearch'/>">
             <i class="icon-search icon-white"></i> <fmt:message key="button.search"/></a>
+        </div>
+        <div cssClass="control-group" style="display:inline-block;float: right;">
+            <div class="form-controls">
+                <select id="idProject" name="idProject">
+                    <option selected value=""><fmt:message key="projectByUser.Combo"/></option>
+                    <c:forEach items="${projectsByUserList}" var="p">
+                        <option value="${p.id}">${p.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
     </div>
+
 
     <display:table name="issueList" class="table table-condensed table-striped table-hover" requestURI="" id="issues" export="true" pagesize="25">
         <display:column property="id" sortable="true" href="issueform" media="html"
@@ -58,3 +73,13 @@
         <display:setProperty name="export.pdf.filename"><fmt:message key="issueList.title"/>.pdf</display:setProperty>
     </display:table>
 </div>
+
+<script>
+    $("#idProject").change(function(){
+        $.ajax({
+            url : "http://localhost:8080/issuesByUser?idProject="+this.value,
+            async : false,
+            context : document.body
+        });
+    });
+</script>

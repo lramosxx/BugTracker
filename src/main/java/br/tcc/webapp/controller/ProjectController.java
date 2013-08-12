@@ -3,7 +3,9 @@ package br.tcc.webapp.controller;
 import br.tcc.webapp.service.ProjectManager;
 import org.appfuse.Constants;
 import org.appfuse.dao.SearchException;
+import org.appfuse.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,6 +30,8 @@ public class ProjectController {
 
     @Autowired
     private ProjectManager projectManager;
+    @Autowired
+    private UserManager userManager;
 
 // -------------------------- OTHER METHODS --------------------------
 

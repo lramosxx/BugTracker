@@ -43,8 +43,8 @@ public class IssueFormController extends BaseFormController  {
     private ProjectManager projectManager;
 
     public IssueFormController() {
-        setCancelView("redirect:issues");
-        setSuccessView("redirect:issues");
+        setCancelView("redirect:issuesByUser");
+        setSuccessView("redirect:issuesByUser");
     }
 
     @ModelAttribute

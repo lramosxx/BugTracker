@@ -3,6 +3,7 @@ package br.tcc.webapp.dao;
 import br.tcc.webapp.model.Issue;
 import org.appfuse.dao.GenericDao;
 
+
 import java.util.List;
 
 /**
@@ -22,5 +23,5 @@ public interface IssueDao extends GenericDao<Issue, Long> {
 
     Issue saveIssue(Issue issue);
 
-
+    List<Issue> getIssuesByUser(Long idUser, Long idProject);
 }

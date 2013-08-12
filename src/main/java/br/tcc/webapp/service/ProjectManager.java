@@ -25,4 +25,6 @@ public interface ProjectManager extends GenericManager<Project, Long> {
     Project saveProject(Project project); //throws UserExistsException;
 
     List<Project> search(String searchTerm);
+
+    List<Project> getProjectsByUser(User user);
 }

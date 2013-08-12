@@ -42,7 +42,7 @@
                 <select id="departament" name="departament" class="span11">
                     <option selected></option>
                     <c:forEach items="${departamentList}" var="depto">
-                        <option value="${depto.id}">${depto.name}</option>
+                            <option value="${depto.id}" ${issue.departament.id eq depto.id ? " selected" : ""} >${depto.name}</option>
                     </c:forEach>
                 </select>
                 <form:errors path="departament" cssClass="help-inline"/>
@@ -54,7 +54,7 @@
                 <select id="activity" name="activity" class="span11">
                     <option selected></option>
                     <c:forEach items="${activityList}" var="a">
-                        <option value="${a.id}">${a.name}</option>
+                        <option value="${a.id}" ${issue.activity.id eq a.id ? " selected" : ""} >${a.name}</option>
                     </c:forEach>
                 </select>
                 <form:errors path="activity" cssClass="help-inline"/>
@@ -66,7 +66,7 @@
                 <select id="project" name="project" class="span11">
                     <option selected></option>
                     <c:forEach items="${projectList}" var="p">
-                        <option value="${p.id}">${p.name}</option>
+                        <option value="${p.id}" ${issue.project.id eq p.id ? " selected" : ""} >${p.name}</option>
                     </c:forEach>
                 </select>
                 <form:errors path="project" cssClass="help-inline"/>
@@ -78,7 +78,7 @@
                 <select id="assigned" name="assigned" class="span6">
                     <option selected=""></option>
                     <c:forEach items="${userList}" var="u">
-                        <option value="${u.id}">${u.firstName}&#32;${u.lastName}</option>
+                        <option value="${u.id}" ${issue.assigned.id eq u.id ? " selected" : "" } >${u.firstName}&#32;${u.lastName}</option>
                     </c:forEach>
                 </select>
                 <form:errors path="assigned" cssClass="help-inline"/>
@@ -90,7 +90,7 @@
                 <select id="status" name="status" class="span6">
                     <option selected=""></option>
                     <c:forEach items="${statusList}" var="s">
-                        <option value="${s.id}">${s.description}</option>
+                        <option value="${s.id}" ${issue.status.id eq s.id ? " selected" : ""} >${s.description}</option>
                     </c:forEach>
                 </select>
                 <form:errors path="status" cssClass="help-inline"/>
