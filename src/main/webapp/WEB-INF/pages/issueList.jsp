@@ -22,7 +22,7 @@
 <div class="span12">
     <h2><fmt:message key='issueList.heading'/></h2>
 
-    <form method="get" action="${ctx}/issues" id="searchForm" class="form-search">
+    <form method="get" action="${ctx}/issuesByUser" id="searchForm" class="form-search">
         <div id="search" class="input-append">
         <input type="text" size="20" name="q" id="query" value="${param.q}"
                placeholder="<fmt:message key="search.enterTerms"/>" class="input-medium search-query"/>

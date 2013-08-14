@@ -4,7 +4,9 @@ import org.appfuse.model.BaseObject;
 import org.appfuse.model.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +29,8 @@ public class Issue extends BaseObject {
     private User assigned = new User();
     private Project project = new Project();
     private Date expectedDate;
+    private List<History> history;
+
 
 // --------------------- GETTER / SETTER METHODS ---------------------
 
@@ -122,6 +126,15 @@ public class Issue extends BaseObject {
         this.summary = summary;
     }
 
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<History> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<History> history) {
+        this.history = history;
+    }
+
 // ------------------------ CANONICAL METHODS ------------------------
 
     @Override
@@ -155,6 +168,7 @@ public class Issue extends BaseObject {
                 ", status=" + status +
                 ", project=" + project +
                 ", expectedDate=" + expectedDate +
+                ", history=" + history +
                 '}';
     }
 }

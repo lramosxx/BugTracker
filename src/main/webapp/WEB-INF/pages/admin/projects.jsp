@@ -34,7 +34,7 @@
     <div id="actions" class="form-actions">
         <a class="btn btn-primary" href="<c:url value='/admin/projectform'/>">
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-        <a class="btn" href="<c:url value='/mainMenu'/>">
+        <a class="btn" href="<c:url value='/issuesByUser'/>">
             <i class="icon-ok"></i> <fmt:message key="button.done"/></a>
     </div>
 

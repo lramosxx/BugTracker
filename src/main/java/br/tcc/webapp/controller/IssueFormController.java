@@ -1,6 +1,7 @@
 package br.tcc.webapp.controller;
 
 import br.tcc.webapp.model.Departament;
+import br.tcc.webapp.model.History;
 import br.tcc.webapp.model.Issue;
 import br.tcc.webapp.model.Status;
 import br.tcc.webapp.service.*;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,6 +44,8 @@ public class IssueFormController extends BaseFormController  {
     private StatusManager statusManager;
     @Autowired
     private ProjectManager projectManager;
+    @Autowired
+    private HistoryManager historyManager;
 
     public IssueFormController() {
         setCancelView("redirect:issuesByUser");
@@ -102,6 +107,9 @@ public class IssueFormController extends BaseFormController  {
             issueManager.removeIssue(issue.getId());
             saveMessage(request, getText("issue.deleted", locale));
         } else {
+            if (!isNew && issueManager.getIssue(issue.getId()).getHistory().size() > 0) {
+                issue.setHistory(issueManager.getIssue(issue.getId()).getHistory());
+            }
             issueManager.saveIssue(issue);
             String key = (isNew) ? "issue.added" : "issue.updated";
             saveMessage(request, getText(key, locale));
@@ -112,5 +120,31 @@ public class IssueFormController extends BaseFormController  {
         }
 
         return success;
+    }
+
+    @RequestMapping("/issueformAddComment")
+    public String addComment(History history, BindingResult errors, HttpServletRequest request,
+                             HttpServletResponse response)
+    {
+
+        history.setAuthor(userManger.getUserByUsername(request.getRemoteUser()));
+        //history.setIssue(issueManager.get(history.getIssue().getId()));
+        history.setDate(new Date());
+        Issue i = issueManager.get(Long.parseLong(request.getParameter("issueId")));
+
+        List<History> l = i.getHistory();
+        l.add(history);
+        i.setHistory(l);
+
+        issueManager.saveIssue(i);
+        //historyManager.saveHistory(history);
+
+        Locale locale = request.getLocale();
+        String key = (true) ? "comment.added" : "comment.updated";
+        saveMessage(request, getText(key, locale));
+
+
+
+        return "redirect:/issueform?id=" + i.getId();
     }
 }

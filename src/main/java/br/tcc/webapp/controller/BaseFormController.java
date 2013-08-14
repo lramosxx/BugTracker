@@ -1,13 +1,7 @@
 package br.tcc.webapp.controller;
 
-import br.tcc.webapp.model.Activity;
-import br.tcc.webapp.model.Departament;
-import br.tcc.webapp.model.Project;
-import br.tcc.webapp.model.Status;
-import br.tcc.webapp.util.binder.ActivityCustomEditor;
-import br.tcc.webapp.util.binder.DepartamentCustomEditor;
-import br.tcc.webapp.util.binder.ProjectCustomEditor;
-import br.tcc.webapp.util.binder.StatusCustomEditor;
+import br.tcc.webapp.model.*;
+import br.tcc.webapp.util.binder.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
@@ -74,6 +68,9 @@ public class BaseFormController implements ServletContextAware {
 
     @Autowired
     DepartamentCustomEditor departamentCustomEditor;
+
+    @Autowired
+    HistoryCustomEditor historyCustomEditor;
 
     @Autowired
     public void setMessages(MessageSource messageSource) {
@@ -186,7 +183,9 @@ public class BaseFormController implements ServletContextAware {
                 new CustomNumberEditor(Long.class, null, true));
         binder.registerCustomEditor(Project.class, null,
                 new CustomNumberEditor(Long.class, null, true));
-        binder.registerCustomEditor(Departament.class, null,
+        binder.registerCustomEditor(History.class, null,
+                new CustomNumberEditor(Long.class, null, true));
+        binder.registerCustomEditor(History.class, null,
                 new CustomNumberEditor(Long.class, null, true));
         SimpleDateFormat dateFormat =
             new SimpleDateFormat(getText("date.format", request.getLocale()));
@@ -197,6 +196,7 @@ public class BaseFormController implements ServletContextAware {
         binder.registerCustomEditor(Status.class, null, statusCustomEditor);
         binder.registerCustomEditor(Project.class, null, projectCustomEditor);
         binder.registerCustomEditor(Departament.class, null, departamentCustomEditor);
+        binder.registerCustomEditor(History.class, null, historyCustomEditor);
     }
 
     /**
