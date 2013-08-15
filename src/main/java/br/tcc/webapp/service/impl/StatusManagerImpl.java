@@ -7,6 +7,7 @@ import org.appfuse.service.impl.GenericManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +56,7 @@ public class StatusManagerImpl extends GenericManagerImpl<Status, Long> implemen
     public Status saveStatus(Status status) {
         return statusDao.saveStatus(status);
     }
+
 
     @Override
     public List<Status> search(String searchTerm) {

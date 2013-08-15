@@ -17,6 +17,7 @@ import java.util.List;
 
 @Repository("issueDao")
 public class IssueDaoHibernate extends GenericDaoHibernate<Issue, Long> implements IssueDao {
+
 // --------------------------- CONSTRUCTORS ---------------------------
 
     public IssueDaoHibernate() {
@@ -28,6 +29,24 @@ public class IssueDaoHibernate extends GenericDaoHibernate<Issue, Long> implemen
     @Override
     public List<Issue> getIssues() {
         Query qry = getSession().createQuery("from Issue i order by i.id");
+        return qry.list();
+    }
+
+    @Override
+    public List<Issue> getIssuesByUser(Long idUser, Long idProject) {
+        Query qry = null;
+
+        if (idProject != null){
+            qry = getSession().createQuery("from Issue i where i.project.id = ? and (i.assigned.id = ? or i.reporter.id = ?) order by i.id");
+            qry.setParameter(0,idProject);
+            qry.setParameter(1,idUser);
+            qry.setParameter(2,idUser);
+        }
+        else{
+            qry = getSession().createQuery("from Issue i where i.assigned.id = ? or i.reporter.id = ? order by i.id");
+            qry.setParameter(0,idUser);
+            qry.setParameter(1,idUser);
+        }
         return qry.list();
     }
 

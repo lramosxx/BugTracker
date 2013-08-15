@@ -13,5 +13,6 @@
         <mapping class="br.tcc.webapp.model.Departament"/>
         <mapping class="br.tcc.webapp.model.Status"/>
         <mapping class="br.tcc.webapp.model.Issue"/>
+        <mapping class="br.tcc.webapp.model.History"/>
     </session-factory>
 </hibernate-configuration>
