@@ -2,7 +2,9 @@ package br.tcc.webapp.service.impl;
 
 import br.tcc.webapp.dao.IssueDao;
 import br.tcc.webapp.model.Issue;
+import br.tcc.webapp.model.Project;
 import br.tcc.webapp.service.IssueManager;
+import org.appfuse.model.User;
 import org.appfuse.service.impl.GenericManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,8 @@ public class IssueManagerImpl extends GenericManagerImpl<Issue, Long> implements
     }
 
 // --------------------- Interface IssueManager ---------------------
+
+
 
     @Override
     public Issue getIssue(Long issueId) {
@@ -57,5 +61,10 @@ public class IssueManagerImpl extends GenericManagerImpl<Issue, Long> implements
     @Override
     public List<Issue> search(String searchTerm) {
         return super.search(searchTerm, Issue.class);
+    }
+
+    @Override
+    public List<Issue> getIssuesByUser(Long idUser, Long idProject) {
+        return issueDao.getIssuesByUser(idUser,idProject);
     }
 }

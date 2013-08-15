@@ -8,6 +8,7 @@ import org.appfuse.service.impl.GenericManagerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +37,23 @@ public class ProjectManagerImpl extends GenericManagerImpl<Project, Long> implem
 
 
 // --------------------- Interface ProjectManager ---------------------
+
+    @Override
+    public List<Project> getProjectsByUser(User user)
+    {
+        List<Project> allProjects = getProjects();
+        ArrayList<Project> result = new ArrayList<Project>();
+
+        if (allProjects == null)
+            return null;
+
+        for (int i = 0; i < allProjects.size(); i++)
+        {
+            if (allProjects.get(i).getUsers().contains(user))
+                result.add(allProjects.get(i));
+        }
+        return result;
+    }
 
     @Override
     public Project getProject(Long projectID) {

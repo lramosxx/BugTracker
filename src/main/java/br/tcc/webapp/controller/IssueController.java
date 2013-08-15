@@ -5,6 +5,7 @@ import br.tcc.webapp.service.IssueManager;
 import br.tcc.webapp.service.ProjectManager;
 import br.tcc.webapp.service.StatusManager;
 import org.appfuse.dao.SearchException;
+import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,10 +40,26 @@ public class IssueController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView handleRequest(@RequestParam(required = false, value = "q") String query) throws Exception {
+    public ModelAndView handleRequest(@RequestParam(required = false, value = "q") String query, HttpServletRequest request) throws Exception {
         Model model = new ExtendedModelMap();
         try {
             model.addAttribute("issueList", issueManager.search(query));
+            model.addAttribute("projectsByUserList", projectManager.getProjectsByUser(userManager.getUserByUsername(request.getRemoteUser())));
+        } catch (SearchException se) {
+            model.addAttribute("searchError", se.getMessage());
+            model.addAttribute(issueManager.getIssues());
+        }
+        return new ModelAndView("issueList", model.asMap());
+    }
+
+    @RequestMapping("/issuesByUser")
+    public ModelAndView issuesByUser(String idProject,HttpServletRequest request) throws Exception {
+        Model model = new ExtendedModelMap();
+        try {
+            User user = userManager.getUserByUsername(request.getRemoteUser());
+            model.addAttribute("idProject", idProject);
+            model.addAttribute("issueList", issueManager.getIssuesByUser(user.getId(), (idProject != null && !idProject.isEmpty()) ? Long.parseLong(idProject) : null));
+            model.addAttribute("projectsByUserList", projectManager.getProjectsByUser(user));
         } catch (SearchException se) {
             model.addAttribute("searchError", se.getMessage());
             model.addAttribute(issueManager.getIssues());

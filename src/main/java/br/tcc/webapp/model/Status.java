@@ -1,6 +1,10 @@
 package br.tcc.webapp.model;
 
 import org.appfuse.model.BaseObject;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +19,7 @@ import javax.persistence.Id;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@org.hibernate.search.annotations.Indexed
 public class Status extends BaseObject {
 
     private Long id;
@@ -24,7 +29,7 @@ public class Status extends BaseObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @org.hibernate.search.annotations.DocumentId
     public Long getId() {
         return id;
     }
@@ -32,7 +37,7 @@ public class Status extends BaseObject {
     public void setId(Long id) {
         this.id = id;
     }
-
+    @org.hibernate.search.annotations.Field
     public String getDescription() {
         return description;
     }

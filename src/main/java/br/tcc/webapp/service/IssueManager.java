@@ -1,6 +1,8 @@
 package br.tcc.webapp.service;
 
 import br.tcc.webapp.model.Issue;
+import br.tcc.webapp.model.Project;
+import org.appfuse.model.User;
 import org.appfuse.service.GenericManager;
 
 import java.util.List;
@@ -25,4 +27,6 @@ public interface IssueManager extends GenericManager<Issue, Long> {
     Issue saveIssue(Issue issue);
 
     List<Issue> search(String searchTerm);
+
+    List<Issue> getIssuesByUser(Long idUser, Long idProject);
 }
