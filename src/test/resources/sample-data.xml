@@ -62,6 +62,69 @@
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
         </row>
+        <row>
+            <value description="id">-3</value>
+            <value description="username">lramos</value>
+            <value description="password">3b88a791c4b84fca0c97354da517a91d81e6029d</value>
+            <value description="first_name">Luiz Felipe</value>
+            <value description="last_name">Silva Ramos</value>
+            <value description="address"></value>
+            <value description="city"></value>
+            <value description="country"></value>
+            <value description="email">lramosxx@gmail.com</value>
+            <value description="phone_number"></value>
+            <value description="postal_code"></value>
+            <value description="province"></value>
+            <value description="website"></value>
+            <value description="password_hint">O manda chuva</value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+        <row>
+            <value description="id">-4</value>
+            <value description="username">gbsantos</value>
+            <value description="password">4c0bceb0d6d6a6632539f1dc84a9ae9a00298442</value>
+            <value description="first_name">Gleison</value>
+            <value description="last_name">Bezerra</value>
+            <value description="address"></value>
+            <value description="city"></value>
+            <value description="country"></value>
+            <value description="email">bs.gleison@gmail.com</value>
+            <value description="phone_number"></value>
+            <value description="postal_code"></value>
+            <value description="province"></value>
+            <value description="website"></value>
+            <value description="password_hint">O manda chuva</value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
+        <row>
+            <value description="id">-5</value>
+            <value description="username">ebrito</value>
+            <value description="password">81a62822fd9aea03fabcc42577cb0442ac1d8d42</value>
+            <value description="first_name">Ezequiel</value>
+            <value description="last_name">Brito</value>
+            <value description="address"></value>
+            <value description="city"></value>
+            <value description="country"></value>
+            <value description="email">3zequiel@gmail.com</value>
+            <value description="phone_number"></value>
+            <value description="postal_code"></value>
+            <value description="province"></value>
+            <value description="website"></value>
+            <value description="password_hint">O manda chuva</value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>
     </table>
     <table name="role">
         <column>id</column>
@@ -88,6 +151,154 @@
         <row>
             <value description="user_id">-2</value>
             <value description="role_id">-1</value>
+        </row>
+        <row>
+            <value description="user_id">-3</value>
+            <value description="role_id">-1</value>
+        </row>
+        <row>
+            <value description="user_id">-4</value>
+            <value description="role_id">-1</value>
+        </row>
+        <row>
+            <value description="user_id">-5</value>
+            <value description="role_id">-1</value>
+        </row>
+    </table>
+    <table name="Status">
+        <column>id</column>
+        <column>description</column>
+        <row>
+            <value description="id">1</value>
+            <value description="description">Aberto</value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="description">Fechado</value>
+        </row>
+        <row>
+            <value description="id">3</value>
+            <value description="description">Em análise</value>
+        </row>
+        <row>
+            <value description="id">4</value>
+            <value description="description">Em andamento</value>
+        </row>
+        <row>
+            <value description="id">5</value>
+            <value description="description">Em testes</value>
+        </row>
+    </table>
+    <table name="Activity">
+        <column>id</column>
+        <column>name</column>
+        <column>hoursToYellow</column>
+        <column>hoursToRed</column>
+        <row>
+            <value description="id">1</value>
+            <value description="name">Desenvolvimento Simples</value>
+            <value description="hoursToYellow">4</value>
+            <value description="hoursToRed">8</value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="name">Desenvolvimento Complexo</value>
+            <value description="hoursToYellow">16</value>
+            <value description="hoursToRed">32</value>
+        </row>
+        <row>
+            <value description="id">3</value>
+            <value description="name">Efetuar Análise</value>
+            <value description="hoursToYellow">4</value>
+            <value description="hoursToRed">8</value>
+        </row>
+        <row>
+            <value description="id">4</value>
+            <value description="name">Testar</value>
+            <value description="hoursToYellow">2</value>
+            <value description="hoursToRed">4</value>
+        </row>
+        <row>
+            <value description="id">5</value>
+            <value description="name">Levantar requisitos</value>
+            <value description="hoursToYellow">4</value>
+            <value description="hoursToRed">8</value>
+        </row>
+        <row>
+            <value description="id">6</value>
+            <value description="name">Elaborar script de teste</value>
+            <value description="hoursToYellow">2</value>
+            <value description="hoursToRed">4</value>
+        </row>
+    </table>
+    <table name="Project">
+        <column>id</column>
+        <column>name</column>
+        <column>description</column>
+        <row>
+            <value description="id">1</value>
+            <value description="name">BugTracker</value>
+            <value description="description">Projeto de desenvolvimento do sistema BugTracker.</value>
+        </row>
+    </table>
+    <table name="Project_App_User">
+        <column>project_id</column>
+        <column>users_id</column>
+        <row>
+            <value description="project_id">1</value>
+            <value description="users_id">-3</value>
+        </row>
+        <row>
+            <value description="project_id">1</value>
+            <value description="users_id">-4</value>
+        </row>
+        <row>
+            <value description="project_id">1</value>
+            <value description="users_id">-5</value>
+        </row>
+    </table>
+    <table name="Departament">
+        <column>id</column>
+        <column>name</column>
+        <row>
+            <value description="id">1</value>
+            <value description="name">Desenvolvimento</value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="name">Análise de Sistemas</value>
+        </row>
+        <row>
+            <value description="id">3</value>
+            <value description="name">Qualidade</value>
+        </row>
+    </table>
+    <table name="Departament_Activity">
+        <column>departament_id</column>
+        <column>activities_id</column>
+        <row>
+            <value description="departament_id">1</value>
+            <value description="activities_id">1</value>
+        </row>
+        <row>
+            <value description="departament_id">1</value>
+            <value description="activities_id">2</value>
+        </row>
+        <row>
+            <value description="departament_id">2</value>
+            <value description="activities_id">3</value>
+        </row>
+        <row>
+            <value description="departament_id">2</value>
+            <value description="activities_id">5</value>
+        </row>
+        <row>
+            <value description="departament_id">3</value>
+            <value description="activities_id">4</value>
+        </row>
+        <row>
+            <value description="departament_id">3</value>
+            <value description="activities_id">6</value>
         </row>
     </table>
 </dataset>
