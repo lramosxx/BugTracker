@@ -37,15 +37,17 @@ public class IssueDaoHibernate extends GenericDaoHibernate<Issue, Long> implemen
         Query qry = null;
 
         if (idProject != null){
-            qry = getSession().createQuery("from Issue i where i.project.id = ? and (i.assigned.id = ? or i.reporter.id = ?) order by i.id");
+            qry = getSession().createQuery("from Issue i where i.project.id = ? and (i.assigned.id = ? or i.reporter.id = ?) and i.status.description != ? order by i.id");
             qry.setParameter(0,idProject);
             qry.setParameter(1,idUser);
             qry.setParameter(2,idUser);
+            qry.setParameter(3,"Fechado");
         }
         else{
-            qry = getSession().createQuery("from Issue i where i.assigned.id = ? or i.reporter.id = ? order by i.id");
+            qry = getSession().createQuery("from Issue i where i.assigned.id = ? or i.reporter.id = ? and i.status.description != ? order by i.id");
             qry.setParameter(0,idUser);
             qry.setParameter(1,idUser);
+            qry.setParameter(2,"Fechado");
         }
         return qry.list();
     }

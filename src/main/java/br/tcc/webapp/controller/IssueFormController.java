@@ -1,9 +1,6 @@
 package br.tcc.webapp.controller;
 
-import br.tcc.webapp.model.Departament;
-import br.tcc.webapp.model.History;
-import br.tcc.webapp.model.Issue;
-import br.tcc.webapp.model.Status;
+import br.tcc.webapp.model.*;
 import br.tcc.webapp.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.service.UserManager;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -96,6 +94,10 @@ public class IssueFormController extends BaseFormController  {
             issue.setAssigned(userManger.getUser(issue.getAssigned().getUsername()));
             issue.setReporter(userManger.getUserByUsername(request.getRemoteUser()));
         }
+
+        HttpSession session = request.getSession(true);
+        if (session.getAttribute("currentProject") != null && issue.getProject().getId() == null)
+            issue.setProject((Project)session.getAttribute("currentProject"));
 
         log.debug("entering 'onSubmit' method...");
 
