@@ -41,12 +41,20 @@
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
         </div>
         <div class="control-group" style="display:inline-block">
+        <a class="btn btn-primary" href="<c:url value='/issuesByUser?q=assigned'/>">
+            <i class=""></i> <fmt:message key="button.issue.assigned"/></a>
+        </div>
+        <div class="control-group" style="display:inline-block">
+        <a class="btn btn-primary" href="<c:url value='/issuesByUser?q=myIssues'/>">
+             <i class=""></i> <fmt:message key="button.issue.my"/></a>
+        </div>
+        <div class="control-group" style="display:inline-block">
         <a class="btn btn-primary" href="<c:url value='/issuesSearch'/>">
             <i class="icon-search icon-white"></i> <fmt:message key="button.search"/></a>
         </div>
         <div cssClass="control-group" style="display:inline-block;float: right;">
             <div id="error" style="visible:false;">
-                <span style="color:red;">Selecione um Projeto</span>
+                <span style="color:red;"><fmt:message key="selectAProject.message"/></span>
             </div>
             <div class="form-controls">
                 <select id="idProject" name="idProject">

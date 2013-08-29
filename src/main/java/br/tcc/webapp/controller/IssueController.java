@@ -55,7 +55,7 @@ public class IssueController {
     }
 
     @RequestMapping("/issuesByUser")
-    public ModelAndView issuesByUser(String idProject,HttpServletRequest request) throws Exception {
+    public ModelAndView issuesByUser(String idProject, String q,HttpServletRequest request) throws Exception {
         Model model = new ExtendedModelMap();
         try {
             User user = userManager.getUserByUsername(request.getRemoteUser());
@@ -74,7 +74,7 @@ public class IssueController {
                 project = (Project)session.getAttribute("currentProject");
 
             model.addAttribute("idProject", idProject);
-            model.addAttribute("issueList", issueManager.getIssuesByUser(user.getId(), (project != null && project.getId() != null) ? project.getId() : null));
+            model.addAttribute("issueList", issueManager.getIssuesByUser(user.getId(), (project != null && project.getId() != null) ? project.getId() : null, q));
             model.addAttribute("projectsByUserList", projectManager.getProjectsByUser(user));
         } catch (SearchException se) {
             model.addAttribute("searchError", se.getMessage());

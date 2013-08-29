@@ -33,21 +33,33 @@ public class IssueDaoHibernate extends GenericDaoHibernate<Issue, Long> implemen
     }
 
     @Override
-    public List<Issue> getIssuesByUser(Long idUser, Long idProject) {
+    public List<Issue> getIssuesByUser(Long idUser, Long idProject, String q) {
         Query qry = null;
 
+
+
         if (idProject != null){
-            qry = getSession().createQuery("from Issue i where i.project.id = ? and (i.assigned.id = ? or i.reporter.id = ?) and i.status.description != ? order by i.id");
-            qry.setParameter(0,idProject);
-            qry.setParameter(1,idUser);
-            qry.setParameter(2,idUser);
-            qry.setParameter(3,"Fechado");
+            if (q != null && q.equals("assigned"))
+                qry = getSession().createQuery("from Issue i where i.project.id =:proj and i.assigned.id =:user and i.status.description !=:status order by i.id");
+            if (q != null && q.equals("myIssues"))
+                qry = getSession().createQuery("from Issue i where i.project.id =:proj and i.reporter.id =:user and i.status.description !=:status order by i.id");
+            if (q == null || (!q.equals("myIssues") && !q.equals("assigned")))
+                qry = getSession().createQuery("from Issue i where i.project.id =:proj and (i.reporter.id =:user or i.assigned.id =:user) and i.status.description !=:status order by i.id");
+
+            qry.setParameter("proj",idProject);
+            qry.setParameter("user",idUser);
+            qry.setParameter("status","Fechado");
         }
         else{
-            qry = getSession().createQuery("from Issue i where i.assigned.id = ? or i.reporter.id = ? and i.status.description != ? order by i.id");
-            qry.setParameter(0,idUser);
-            qry.setParameter(1,idUser);
-            qry.setParameter(2,"Fechado");
+            if (q != null && q.equals("assigned"))
+                qry = getSession().createQuery("from Issue i where i.assigned.id =:user and i.status.description !=:status order by i.id");
+            if (q != null && q.equals("myIssues"))
+                qry = getSession().createQuery("from Issue i where i.reporter.id =:user and i.status.description !=:status order by i.id");
+            if (q == null || (!q.equals("myIssues") && !q.equals("assigned")))
+                qry = getSession().createQuery("from Issue i where (i.reporter.id =:user or i.assigned =:user) and i.status.description !=:status order by i.id");
+
+            qry.setParameter("user",idUser);
+            qry.setParameter("status","Fechado");
         }
         return qry.list();
     }
