@@ -19,8 +19,11 @@
     </div>
 </c:if>
 
+
+
 <div class="span12">
     <h2><fmt:message key='issueList.heading'/></h2>
+
 
     <form method="get" action="${ctx}/issuesByUser" id="searchForm" class="form-search">
         <div id="search" class="input-append">
@@ -34,19 +37,30 @@
 
     <div id="actions" class="form-actions">
         <div class="control-group" style="display:inline-block">
-        <a class="btn btn-primary" href="<c:url value='/issueform'/>">
+        <a class="btn btn-primary" href="<c:url value='/issueform'/>" id="btnAdd">
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
+        </div>
+        <div class="control-group" style="display:inline-block">
+        <a class="btn btn-primary" href="<c:url value='/issuesByUser?q=assigned'/>">
+            <i class=""></i> <fmt:message key="button.issue.assigned"/></a>
+        </div>
+        <div class="control-group" style="display:inline-block">
+        <a class="btn btn-primary" href="<c:url value='/issuesByUser?q=myIssues'/>">
+             <i class=""></i> <fmt:message key="button.issue.my"/></a>
         </div>
         <div class="control-group" style="display:inline-block">
         <a class="btn btn-primary" href="<c:url value='/issuesSearch'/>">
             <i class="icon-search icon-white"></i> <fmt:message key="button.search"/></a>
         </div>
         <div cssClass="control-group" style="display:inline-block;float: right;">
+            <div id="error" style="visible:false;">
+                <span style="color:red;"><fmt:message key="selectAProject.message"/></span>
+            </div>
             <div class="form-controls">
                 <select id="idProject" name="idProject">
                     <option selected value=""><fmt:message key="projectByUser.Combo"/></option>
                     <c:forEach items="${projectsByUserList}" var="p">
-                        <option value="${p.id}">${p.name}</option>
+                        <option value="${p.id}" ${p.id == currentProject.id ? "selected" : ""}>${p.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -75,11 +89,37 @@
 </div>
 
 <script>
-    $("#idProject").change(function(){
-        $.ajax({
-            url : "http://localhost:8080/issuesByUser?idProject="+this.value,
-            async : false,
-            context : document.body
+
+    $(document).ready(function(){
+        $("#idProject").change(function(){
+            $.ajax({
+                url : "http://localhost:8080/issuesByUser?idProject="+this.value,
+                async : false,
+                success: function(content) {
+                    $("body").html(content);
+                }
+            });
+
+            if ($("#idProject").val() != ""){
+                $("#error").hide();
+            }
+        });
+
+        $("#error").hide();
+        $("#btnAdd").click(function(){
+            return hideOrShowMessage();
         });
     });
+
+    function hideOrShowMessage(){
+        if ($("#idProject").val() == ""){
+            $("#error").show();
+            return false;
+        }
+        else{
+            $("#error").hide();
+            return true;
+        }
+    }
+
 </script>

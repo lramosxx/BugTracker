@@ -64,7 +64,7 @@ public class IssueManagerImpl extends GenericManagerImpl<Issue, Long> implements
     }
 
     @Override
-    public List<Issue> getIssuesByUser(Long idUser, Long idProject) {
-        return issueDao.getIssuesByUser(idUser,idProject);
+    public List<Issue> getIssuesByUser(Long idUser, Long idProject, String q) {
+        return issueDao.getIssuesByUser(idUser,idProject, q);
     }
 }

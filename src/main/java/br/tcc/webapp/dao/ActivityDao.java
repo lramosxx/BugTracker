@@ -17,6 +17,8 @@ public interface ActivityDao extends GenericDao<Activity, Long> {
 
     List<Activity> getActivities();
 
+    List<Activity> getActivitiesByDepartament(Long idDepartament);
+
     void removeActivity(Long activityId);
 
     Activity saveActivity(Activity activity);

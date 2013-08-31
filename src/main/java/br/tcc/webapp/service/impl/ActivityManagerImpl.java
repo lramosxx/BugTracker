@@ -42,6 +42,11 @@ public class ActivityManagerImpl extends GenericManagerImpl<Activity, Long> impl
     }
 
     @Override
+    public List<Activity> getActivitiesByDepartament(Long idDepartament){
+        return activityDao.getActivitiesByDepartament(idDepartament);
+    }
+
+    @Override
     public List<Activity> getActivities() {
         return activityDao.getAllDistinct();
     }

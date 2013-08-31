@@ -237,18 +237,20 @@
                 <form:errors path="activity" cssClass="help-inline"/>
             </div>
         </div>
+        <c:if test="${issue.project.id != null}">
         <div class="control-group">
             <appfuse:label styleClass="control-label" key="issue.project"/>
             <div class="controls">
-                <select id="project" name="project" class="span11">
+                <select id="project" name="project" class="span11" disabled>
                     <option selected></option>
-                    <c:forEach items="${projectList}" var="p">
-                        <option value="${p.id}" ${issue.project.id eq p.id ? " selected" : ""} >${p.name}</option>
-                    </c:forEach>
+                        <c:forEach items="${projectList}" var="p">
+                            <option value="${p.id}" ${issue.project.id eq p.id ? " selected" : ""} >${p.name}</option>
+                        </c:forEach>
                 </select>
                 <form:errors path="project" cssClass="help-inline"/>
             </div>
         </div>
+        </c:if>
         <div class="control-group">
             <appfuse:label styleClass="control-label" key="issue.assigned"/>
             <div class="controls">
