@@ -109,8 +109,11 @@ public class IssueFormController extends BaseFormController  {
             issueManager.removeIssue(issue.getId());
             saveMessage(request, getText("issue.deleted", locale));
         } else {
-            if (!isNew && issueManager.getIssue(issue.getId()).getHistory().size() > 0) {
-                issue.setHistory(issueManager.getIssue(issue.getId()).getHistory());
+
+            List<History> hist = historyManager.getHistoryByIssue(issue.getId());
+
+            if (!isNew && hist != null && hist.size() > 0) {
+                issue.setHistory(hist);
             }
             issueManager.saveIssue(issue);
             String key = (isNew) ? "issue.added" : "issue.updated";

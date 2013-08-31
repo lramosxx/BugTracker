@@ -106,7 +106,11 @@ public class IssueDaoHibernate extends GenericDaoHibernate<Issue, Long> implemen
 
     @Override
     public Issue saveIssue(Issue issue) {
-        getSession().saveOrUpdate(issue);
+        getSession().clear();
+        if (issue.getId() != null)
+            getSession().saveOrUpdate(issue);
+        else
+            getSession().save(issue);
         // necessary to throw a DataIntegrityViolation and catch it in UserManager
         getSession().flush();
         return issue;

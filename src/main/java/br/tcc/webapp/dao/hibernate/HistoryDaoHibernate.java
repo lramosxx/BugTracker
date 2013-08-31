@@ -2,6 +2,7 @@ package br.tcc.webapp.dao.hibernate;
 
 import br.tcc.webapp.dao.HistoryDao;
 import br.tcc.webapp.model.History;
+import br.tcc.webapp.model.Issue;
 import org.appfuse.dao.hibernate.GenericDaoHibernate;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -31,9 +32,15 @@ public class HistoryDaoHibernate extends GenericDaoHibernate<History, Long> impl
 
     @Override
     public List<History> getHistory(Long issueId) {
-        Query qry = getSession().createQuery("from History h where h.issue.id = ? order by h.date");
+        Query qry = getSession().createQuery("from Issue i where i.id = ?");
         qry.setParameter(0,issueId);
-        return qry.list();
+
+        List<Issue> issueList = qry.list();
+
+        if (issueList.size() > 0)
+            return issueList.get(0).getHistory();
+
+        return null;
     }
 
     @Override
