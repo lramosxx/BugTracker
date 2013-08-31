@@ -1,6 +1,7 @@
 package br.tcc.webapp.controller;
 
 import br.tcc.webapp.model.Issue;
+import br.tcc.webapp.model.Project;
 import br.tcc.webapp.service.IssueManager;
 import br.tcc.webapp.service.ProjectManager;
 import br.tcc.webapp.service.StatusManager;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -53,12 +55,26 @@ public class IssueController {
     }
 
     @RequestMapping("/issuesByUser")
-    public ModelAndView issuesByUser(String idProject,HttpServletRequest request) throws Exception {
+    public ModelAndView issuesByUser(String idProject, String q,HttpServletRequest request) throws Exception {
         Model model = new ExtendedModelMap();
         try {
             User user = userManager.getUserByUsername(request.getRemoteUser());
+            HttpSession session = request.getSession(true);
+            Project project = null;
+
+            if (idProject != null){
+                if (!idProject.isEmpty())
+                    session.setAttribute("currentProject", projectManager.getProject(Long.parseLong(idProject)));
+                else
+                    session.removeAttribute("currentProject");
+            }
+
+
+            if (session.getAttribute("currentProject") != null)
+                project = (Project)session.getAttribute("currentProject");
+
             model.addAttribute("idProject", idProject);
-            model.addAttribute("issueList", issueManager.getIssuesByUser(user.getId(), (idProject != null && !idProject.isEmpty()) ? Long.parseLong(idProject) : null));
+            model.addAttribute("issueList", issueManager.getIssuesByUser(user.getId(), (project != null && project.getId() != null) ? project.getId() : null, q));
             model.addAttribute("projectsByUserList", projectManager.getProjectsByUser(user));
         } catch (SearchException se) {
             model.addAttribute("searchError", se.getMessage());

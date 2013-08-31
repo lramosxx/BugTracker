@@ -23,5 +23,5 @@ public interface IssueDao extends GenericDao<Issue, Long> {
 
     Issue saveIssue(Issue issue);
 
-    List<Issue> getIssuesByUser(Long idUser, Long idProject);
+    List<Issue> getIssuesByUser(Long idUser, Long idProject, String q);
 }

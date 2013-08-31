@@ -28,5 +28,5 @@ public interface IssueManager extends GenericManager<Issue, Long> {
 
     List<Issue> search(String searchTerm);
 
-    List<Issue> getIssuesByUser(Long idUser, Long idProject);
+    List<Issue> getIssuesByUser(Long idUser, Long idProject, String q);
 }
