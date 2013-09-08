@@ -77,6 +77,9 @@ public class IssueFormController extends BaseFormController  {
     public String onSubmit(Issue issue, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
             throws Exception {
+
+        HttpSession session = request.getSession(true);
+
         if (request.getParameter("cancel") != null) {
             return getCancelView();
         }
@@ -95,7 +98,6 @@ public class IssueFormController extends BaseFormController  {
             issue.setReporter(userManger.getUserByUsername(request.getRemoteUser()));
         }
 
-        HttpSession session = request.getSession(true);
         if (session.getAttribute("currentProject") != null && issue.getProject().getId() == null)
             issue.setProject((Project)session.getAttribute("currentProject"));
 

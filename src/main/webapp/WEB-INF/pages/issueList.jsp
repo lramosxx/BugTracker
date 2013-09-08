@@ -10,6 +10,21 @@
 <head>
     <title><fmt:message key="issueList.title"/></title>
     <meta name="menu" content="IssueMenu"/>
+    <style rel="stylesheet" type="text/css">
+    .label-danger {
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: 11.844px;
+    font-weight: bold;
+    line-height: 14px;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #E25454;
+    }
+    </style>
+
 </head>
 
 <c:if test="${not empty searchError}">
@@ -80,6 +95,11 @@
         <display:column property="assigned.firstName" sortable="true" titleKey="issue.assigned"/>
         <display:column property="status.description" sortable="true" titleKey="issue.status"/>
         <display:column property="expectedDate" sortable="true" titleKey="issue.expectedDate"/>
+
+            <display:column sortable="true" titleKey="issue.time">
+                <div id="imgStatus${issues.id}" props="${issues.activity.hoursToYellow}|${issues.activity.hoursToRed}|${issues.expectedDate}"></div>
+            </display:column>
+
         <display:setProperty name="paging.banner.item_name"><fmt:message key="issueList.issue"/></display:setProperty>
         <display:setProperty name="paging.banner.items_name"><fmt:message key="issueList.issues"/></display:setProperty>
         <display:setProperty name="export.excel.filename"><fmt:message key="issueList.title"/>.xls</display:setProperty>
@@ -92,8 +112,9 @@
 
     $(document).ready(function(){
         $("#idProject").change(function(){
+            //alert(window.location.pathname);
             $.ajax({
-                url : "http://localhost:8080/issuesByUser?idProject="+this.value,
+                url : "/issuesByUser?idProject="+this.value,
                 async : false,
                 success: function(content) {
                     $("body").html(content);
@@ -109,6 +130,15 @@
         $("#btnAdd").click(function(){
             return hideOrShowMessage();
         });
+
+        $("a[href^='issueform']").each(function(a,b){
+            $(this).click(function(){
+                return hideOrShowMessage();
+            });
+
+        });
+
+        calculateImgStatus();
     });
 
     function hideOrShowMessage(){
@@ -120,6 +150,31 @@
             $("#error").hide();
             return true;
         }
+    }
+
+
+    function calculateImgStatus(){
+
+        $("div[id^='imgStatus']").each(function(){
+            var dt1       = new Date();
+            var dt2       = new Date($(this).attr("props").split("|")[2]);
+            var yellow    = $(this).attr("props").split("|")[0];
+            var red       = $(this).attr("props").split("|")[1];
+            var hoursDiff = parseInt((dt2-dt1)/(3600*1000));
+
+            if (hoursDiff <= yellow){
+                $(this).html("<span class='label label-danger'><fmt:message key='expectative.red'/></span>");
+            }
+            else{
+                if (hoursDiff > yellow && hoursDiff <= red)
+                    $(this).html("<span class='label label-warning'><fmt:message key='expectative.yellow'/></span>");
+                else
+                    $(this).html("<span class='label label-success'><fmt:message key='expectative.green'/></span>");
+            }
+//            alert(parseInt((dt2-dt1)/(3600*1000)));
+
+        });
+
     }
 
 </script>
