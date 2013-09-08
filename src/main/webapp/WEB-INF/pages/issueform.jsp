@@ -337,10 +337,47 @@
 
     var hash;
     $(document).ready(function(){
+
+        if ($("#departament").val() == null || $("#departament").val() == ""){
+            $("#activity").attr("disabled","disabled");
+        }
+
         $('.gravatar').each(function(i,e){
             hash = calcMD5($(e).attr("email"));
             $(e).attr('src','https://gravatar.com/avatar/'+hash+'?d=mm');
         });
+
+        $("#departament").change(function(){
+
+            if ($("#departament").val() == null || $("#departament").val() == ""){
+                $("#activity").attr("disabled","disabled");
+                return false;
+            }
+
+            $("#activity").html("");
+            $("#activity").append('<option selected></option>');
+
+            if ($(this).val() != null){
+
+                $.ajax({
+                    url : "/admin/activities/getActivities?idDepartament="+$(this).val(),
+                    type : "GET",
+                    dataType : "json",
+                    processData : true,
+                    contentType : "application/json; charset=utf-8",
+                    success : function(data) {
+                        $(data).each(function(a,b){
+                            $("#activity").append('<option value='+ b.id +'>'+ b.name+'</option>');
+                        });
+                        $("#activity").removeAttr("disabled");
+                    },
+                    error: function(data){
+                        alert("Erro ao buscar as Atividades do Departamento selecionado")
+                    }
+                });
+            }
+        });
+
     });
 
 </script>

@@ -41,7 +41,7 @@ public class IssueController {
         this.issueManager = issueManager;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    //@RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest(@RequestParam(required = false, value = "q") String query, HttpServletRequest request) throws Exception {
         Model model = new ExtendedModelMap();
         try {
@@ -54,7 +54,8 @@ public class IssueController {
         return new ModelAndView("issueList", model.asMap());
     }
 
-    @RequestMapping("/issuesByUser")
+    //@RequestMapping("/issuesByUser")
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView issuesByUser(String idProject, String q,HttpServletRequest request) throws Exception {
         Model model = new ExtendedModelMap();
         try {

@@ -5,17 +5,23 @@ import br.tcc.webapp.service.ActivityManager;
 import org.appfuse.Constants;
 import org.appfuse.dao.SearchException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
+import org.codehaus.jackson.map.annotate.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.naming.Context;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Response;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,23 +50,20 @@ public class ActivityController {
     }
 
     @RequestMapping("/getActivities")
-    public String getActivities(String idDepartament) throws Exception {
+    public ResponseEntity<String> getActivities(String idDepartament,HttpServletResponse response) throws Exception {
 
 
         ObjectMapper mapper = new ObjectMapper();
-        String str = activityManager.getActivitiesByDepartament(Long.parseLong(idDepartament)).toString();
+        List<Activity> model = activityManager.getActivitiesByDepartament(Long.parseLong(idDepartament));
 
-        return str;
-        //Map<String,Object> map = mapper.readValue(activityManager.getActivitiesByDepartament(Long.parseLong(idDepartament)).toString(),Map.class);
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(model);
 
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+        response.setCharacterEncoding("UTF-8");
 
+        return new ResponseEntity<String>(json, responseHeaders, HttpStatus.CREATED);
 
-
-        //if (idDepartament != null && !idDepartament.isEmpty())
-          //  return activityManager.getActivitiesByDepartament(Long.parseLong(idDepartament)).toString();
-
-
-
-       // return null;
     }
 }
