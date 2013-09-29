@@ -5,6 +5,7 @@ import br.tcc.webapp.service.ProjectManager;
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -83,17 +84,23 @@ public class ProjectFormController extends BaseFormController  {
         String success = getSuccessView();
         Locale locale = request.getLocale();
 
-        if (request.getParameter("delete") != null) {
-            projectManager.removeProject(project.getId());
-            saveMessage(request, getText("project.deleted", locale));
-        } else {
-            projectManager.saveProject(project);
-            String key = (isNew) ? "project.added" : "project.updated";
-            saveMessage(request, getText(key, locale));
 
-            if (!isNew) {
-                success = "redirect:/admin/projectform?id=" + project.getId();
+        try{
+            if (request.getParameter("delete") != null) {
+                projectManager.removeProject(project.getId());
+                saveMessage(request, getText("project.deleted", locale));
+            } else {
+                projectManager.saveProject(project);
+                String key = (isNew) ? "project.added" : "project.updated";
+                saveMessage(request, getText(key, locale));
+
+                if (!isNew) {
+                    success = "redirect:/admin/projectform?id=" + project.getId();
+                }
             }
+        }
+        catch(ConstraintViolationException ex){
+            saveError(request, getText("item.cantbe.removed", locale));
         }
 
         return success;

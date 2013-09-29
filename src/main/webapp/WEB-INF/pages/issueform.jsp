@@ -299,7 +299,7 @@
 
     <form:form commandName="history" method="post" action="/issueformAddComment" id="commentForm"
            class="well form-horizontal" onsubmit="">
-        <input type="hidden" value="${issue.id}" id="issueId" name="issueId"/>
+        <input type="hidden" value="${issue.id}" id="idIssue" name="idIssue"/>
         <div class="control-group">
             <appfuse:label styleClass="control-label" key="issue.history"/>
             <div class="controls">
@@ -329,7 +329,7 @@
     </form:form>
 </div>
 <script type="text/javascript" src="<c:url value='/scripts/datepicker/js/bootstrap-datepicker.js'/>"></script>
-<script type="text/javascript" src="<c:url value="/scripts/MD5.js"/>"></script>
+            <script type="text/javascript" src="<c:url value="/scripts/MD5.js"/>"></script>
 <script>
     $(function() {
         $( "#expectedDate" ).datepicker();

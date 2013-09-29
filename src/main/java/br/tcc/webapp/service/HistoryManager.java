@@ -24,4 +24,6 @@ public interface HistoryManager extends GenericManager<History, Long> {
     History saveHistory(History history);
 
     List<History> search(String searchTerm);
+
+    List<History> getUnreadHistory(Long userId);
 }

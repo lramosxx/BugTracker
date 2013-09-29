@@ -61,4 +61,9 @@ public class HistoryManagerImpl extends GenericManagerImpl<History, Long> implem
     public List<History> search(String searchTerm) {
         return super.search(searchTerm, History.class);
     }
+
+    @Override
+    public List<History> getUnreadHistory(Long userId){
+        return historyDao.getUnreadHistory(userId);
+    }
 }

@@ -3,6 +3,7 @@ package br.tcc.webapp.controller;
 import br.tcc.webapp.model.Activity;
 import br.tcc.webapp.service.ActivityManager;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -69,17 +70,22 @@ public class ActivityFormController extends BaseFormController  {
         String success = getSuccessView();
         Locale locale = request.getLocale();
 
-        if (request.getParameter("delete") != null) {
-            activityManager.removeActivity(activity.getId());
-            saveMessage(request, getText("activity.deleted", locale));
-        } else {
-            activityManager.saveActivity(activity);
-            String key = (isNew) ? "activity.added" : "activity.updated";
-            saveMessage(request, getText(key, locale));
+        try{
+            if (request.getParameter("delete") != null) {
+                activityManager.removeActivity(activity.getId());
+                saveMessage(request, getText("activity.deleted", locale));
+            } else {
+                activityManager.saveActivity(activity);
+                String key = (isNew) ? "activity.added" : "activity.updated";
+                saveMessage(request, getText(key, locale));
 
-            if (!isNew) {
-                success = "redirect:/admin/activityform?id=" + activity.getId();
+                if (!isNew) {
+                    success = "redirect:/admin/activityform?id=" + activity.getId();
+                }
             }
+        }
+        catch(ConstraintViolationException ex){
+            saveError(request, getText("item.cantbe.removed", locale));
         }
 
         return success;
