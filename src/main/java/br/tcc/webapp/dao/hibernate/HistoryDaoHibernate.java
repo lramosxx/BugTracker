@@ -7,6 +7,7 @@ import org.appfuse.dao.hibernate.GenericDaoHibernate;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +32,12 @@ public class HistoryDaoHibernate extends GenericDaoHibernate<History, Long> impl
 // --------------------- Interface HistoryDao ---------------------
 
     @Override
+    public void removeHistory(Long historyId) {
+        remove(historyId);
+        getSession().flush();
+    }
+
+    @Override
     public List<History> getHistory(Long issueId) {
         Query qry = getSession().createQuery("from Issue i where i.id = ?");
         qry.setParameter(0,issueId);
@@ -44,15 +51,37 @@ public class HistoryDaoHibernate extends GenericDaoHibernate<History, Long> impl
     }
 
     @Override
-    public void removeHistory(Long historyId) {
-        remove(historyId);
-        getSession().flush();
-    }
-
-    @Override
     public History saveHistory(History history) {
         getSession().saveOrUpdate(history);
         getSession().flush();
         return history;
     }
+
+    @Override
+    public List<History> getUnreadHistory(Long userId){
+
+        Query qry = getSession()
+                .createQuery("from Issue i where i.status.id != 2 and i.history.size > 0 and" +
+                " (i.reporter.id = ? or i.assigned.id = ?) order by i.id");
+
+        qry.setParameter(0, userId);
+        qry.setParameter(1, userId);
+
+        List<Issue> issueList = qry.list();
+
+        ArrayList<History> historyList =  new ArrayList<History>();
+
+        for (int i = 0; i < issueList.size(); i++){
+            if (issueList.get(i).getHistory().size() > 0){
+                List<History> auxList = issueList.get(i).getHistory();
+                for (int j = 0; j < auxList.size(); j++){
+                    if (!auxList.get(j).getRead() && auxList.get(j).getAuthor().getId() != userId)
+                        historyList.add(auxList.get(j));
+                }
+            }
+        }
+
+        return historyList;
+    }
+
 }

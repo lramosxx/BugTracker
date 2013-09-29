@@ -19,6 +19,8 @@ public class History {
     private String comment;
     private User author;
     private Date date;
+    private boolean read;
+    private Long idIssue;
 
     public History() {
     }
@@ -58,6 +60,22 @@ public class History {
         this.date = date;
     }
 
+    public void setRead(boolean read){
+        this.read = read;
+    }
+
+    public boolean getRead(){
+        return this.read;
+    }
+
+    public void setIdIssue(Long idIssue){
+        this.idIssue = idIssue;
+    }
+
+    public Long getIdIssue(){
+        return this.idIssue;
+    }
+
     // ------------------------ CANONICAL METHODS ------------------------
 
     @Override
@@ -87,6 +105,8 @@ public class History {
                 ", comment='" + comment + '\'' +
                 ", author=" + author +
                 ", date=" + date +
+                ", read=" + read +
+                ", idIssue=" + idIssue +
                 '}';
     }
 }

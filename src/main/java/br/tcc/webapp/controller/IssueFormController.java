@@ -137,7 +137,7 @@ public class IssueFormController extends BaseFormController  {
         history.setAuthor(userManger.getUserByUsername(request.getRemoteUser()));
         //history.setIssue(issueManager.get(history.getIssue().getId()));
         history.setDate(new Date());
-        Issue i = issueManager.get(Long.parseLong(request.getParameter("issueId")));
+        Issue i = issueManager.get(Long.parseLong(request.getParameter("idIssue")));
 
         List<History> l = i.getHistory();
         l.add(history);

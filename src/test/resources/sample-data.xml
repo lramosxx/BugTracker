@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <dataset>
     <table name="app_user">
         <column>id</column>
@@ -299,6 +300,102 @@
         <row>
             <value description="departament_id">3</value>
             <value description="activities_id">6</value>
+        </row>
+    </table>
+    <table name="Issue">
+        <column>id</column>
+        <column>description</column>
+        <column>expectedDate</column>
+        <column>summary</column>
+        <column>activity_id</column>
+        <column>assigned_id</column>
+        <column>departament_id</column>
+        <column>project_id</column>
+        <column>reporter_id</column>
+        <column>status_id</column>
+        <row>
+            <value description="id">1</value>
+            <value description="description">Descricao do caso</value>
+            <value description="expectedDate">2013-10-05</value>
+            <value description="summary">Resumo</value>
+            <value description="activity_id">1</value>
+            <value description="assigned_id">-3</value>
+            <value description="departament_id">1</value>
+            <value description="project_id">1</value>
+            <value description="reporter_id">-4</value>
+            <value description="status_id">1</value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="description">Adicionar descricao do caso</value>
+            <value description="expectedDate">2013-10-10</value>
+            <value description="summary">Verificar problemas ao excluir itens</value>
+            <value description="activity_id">4</value>
+            <value description="assigned_id">-5</value>
+            <value description="departament_id">3</value>
+            <value description="project_id">1</value>
+            <value description="reporter_id">-4</value>
+            <value description="status_id">5</value>
+        </row>
+        <row>
+            <value description="id">3</value>
+            <value description="description">Casos de Uso</value>
+            <value description="expectedDate">2013-10-15</value>
+            <value description="summary">Atualizar descrição dos casos de usos na documentação</value>
+            <value description="activity_id">3</value>
+            <value description="assigned_id">-4</value>
+            <value description="departament_id">2</value>
+            <value description="project_id">1</value>
+            <value description="reporter_id">-3</value>
+            <value description="status_id">3</value>
+        </row>
+        <row>
+            <value description="id">4</value>
+            <value description="description">Teste do data loader</value>
+            <value description="expectedDate">2013-10-14</value>
+            <value description="summary">Adicionar e testes Casos e Comentários no Data Loader</value>
+            <value description="activity_id">6</value>
+            <value description="assigned_id">-4</value>
+            <value description="departament_id">3</value>
+            <value description="project_id">1</value>
+            <value description="reporter_id">-3</value>
+            <value description="status_id">5</value>
+        </row>
+    </table>
+    <table name="History">
+        <column>id</column>
+        <column>comment</column>
+        <column>date</column>
+        <column>author_id</column>
+        <column>read</column>
+        <column>idIssue</column>
+        <row>
+            <value description="id">1</value>
+            <value description="comment">Comentário teste do caso 1</value>
+            <value description="date">2013-09-28</value>
+            <value description="author_id">-3</value>
+            <value description="read">false</value>
+            <value description="idIssue">1</value>
+        </row>
+        <row>
+            <value description="id">2</value>
+            <value description="comment">Comentário teste do caso 2</value>
+            <value description="date">2013-09-27</value>
+            <value description="author_id">-4</value>
+            <value description="read">false</value>
+            <value description="idIssue">1</value>
+        </row>
+    </table>
+    <table name="issue_history">
+        <column>Issue_id</column>
+        <column>history_id</column>
+        <row>
+            <value description="Issue_id">1</value>
+            <value description="history_id">1</value>
+        </row>
+        <row>
+            <value description="Issue_id">1</value>
+            <value description="history_id">2</value>
         </row>
     </table>
 </dataset>

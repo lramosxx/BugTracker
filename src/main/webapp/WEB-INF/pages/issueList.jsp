@@ -1,4 +1,7 @@
 <%@ page import="java.util.concurrent.TimeUnit" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+
 <%--
   Created by IntelliJ IDEA.
   User: Gleison
@@ -7,6 +10,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ include file="/common/taglibs.jsp"%>
+
 <head>
     <title><fmt:message key="issueList.title"/></title>
     <meta name="menu" content="IssueMenu"/>
@@ -41,12 +45,15 @@
 
 
     <form method="get" action="${ctx}/issuesByUser" id="searchForm" class="form-search">
+
         <div id="search" class="input-append">
+
         <input type="text" size="20" name="q" id="query" value="${param.q}"
                placeholder="<fmt:message key="search.enterTerms"/>" class="input-medium search-query"/>
         <button id="button.search" class="btn" type="submit">
             <i class="icon-search"></i> <fmt:message key="button.search"/>
         </button>
+
     </div>
     </form>
 
@@ -69,16 +76,40 @@
         </div>
         <div cssClass="control-group" style="display:inline-block;float: right;">
             <div id="error" style="visible:false;">
-                <span style="color:red;"><fmt:message key="selectAProject.message"/></span>
+                <span style="color:red;"><fmt:message key="selectAProject.Erro"/></span>
             </div>
-            <div class="form-controls">
-                <select id="idProject" name="idProject">
-                    <option selected value=""><fmt:message key="projectByUser.Combo"/></option>
+            <span><fmt:message key="issue.project"/></span>
+            <div class="btn-group" style="height:20px; margin-left:5px;">
+                <button id="dropProject" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+
+                    <c:if test="${currentProject eq null}">
+                        <span><fmt:message key="projectByUser.Combo"/></span>
+                    </c:if>
+                    <c:if test="${currentProject != null}">
+                        <c:forEach items="${projectsByUserList}" var="pr">
+                            <c:if test="${pr.id eq currentProject.id}">
+                                <span>${pr.name}</span>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" style="margin-top:10px">
+                    <li><a href="/issuesByUser?idProject=">...</a></li>
                     <c:forEach items="${projectsByUserList}" var="p">
-                        <option value="${p.id}" ${p.id == currentProject.id ? "selected" : ""}>${p.name}</option>
+                        <li><a href="/issuesByUser?idProject=${p.id}">${p.name}</a></li>
                     </c:forEach>
-                </select>
+                </ul>
             </div>
+        </div>
+
+        <div class="btn-group" style="height:20px; margin-left:5px;">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropNotify">
+                <fmt:message key="history.notify"/> <span id="qtd" class="badge"></span> <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" style="margin-top:10px; max-width: 400px;" id="notifyItem">
+
+            </ul>
         </div>
     </div>
 
@@ -108,9 +139,15 @@
     </display:table>
 </div>
 
+<script type="text/javascript" src="<c:url value="/scripts/MD5.js"/>"></script>
+
 <script>
 
+    $('.dropdown-toggle').dropdown();
+
     $(document).ready(function(){
+
+
         $("#idProject").change(function(){
             //alert(window.location.pathname);
             $.ajax({
@@ -139,17 +176,68 @@
         });
 
         calculateImgStatus();
+
+        $.ajax({
+            url : "/history/getUnreadtHistory?idUser=",
+            type : "GET",
+            dataType : "json",
+            processData : true,
+            contentType : "application/json; charset=utf-8",
+            success : function(data) {
+
+                $("#qtd").html(data.length);
+                if (data.length > 0){
+                    $("#dropNotify").removeClass("btn-default");
+                    $("#dropNotify").addClass("btn-danger");
+                }
+                else{
+                    $("#dropNotify").removeClass("btn-danger");
+                    $("#dropNotify").addClass("btn-default");
+                }
+
+                $(data).each(function(a,b){
+                    var d = new Date(b.date);
+                    var dia = d.getDate();
+                    var m = d.getMonth();
+                    var y = d.getFullYear();
+                    $("#notifyItem").append(
+                    '<li>' +
+                       '<a href="/history/checkAsRead?idHistory='+ b.idIssue +'">' +
+                         '<img id="avatar" src="https://gravatar.com/avatar/'+ calcMD5(b.author.email) +'?d=mm" style="height:30px; width:30px;" class="img-polaroid" />' +
+                         '<span> ' + dia +'/' + m + '/' + y + '</span><br/>' +
+                         '<span>' + b.author.fullName + '</span><br/>' +
+                         '<span>' + shorten(b.comment,45) +'</span><br />' +
+                       '</a>' +
+                    '</li>' +
+                    '<li class="divider"></li>');
+                });
+            }
+        });
+
     });
 
     function hideOrShowMessage(){
-        if ($("#idProject").val() == ""){
+
+        if ("${currentProject}" == null || "${currentProject}" == ''){
             $("#error").show();
+            $("#dropProject").removeClass("btn-default");
+            $("#dropProject").addClass("btn-danger");
             return false;
         }
         else{
             $("#error").hide();
+            $("#dropProject").removeClass("btn-danger");
+            $("#dropProject").addClass("btn-default");
             return true;
         }
+    }
+
+    function shorten(text, maxLength) {
+        var ret = text;
+        if (ret.length > maxLength) {
+            ret = ret.substr(0,maxLength-3) + "...";
+        }
+        return ret;
     }
 
 
