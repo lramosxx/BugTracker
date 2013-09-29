@@ -202,9 +202,9 @@
                     var y = d.getFullYear();
                     $("#notifyItem").append(
                     '<li>' +
-                       '<a href="/history/checkAsRead?idHistory='+ b.idIssue +'">' +
+                       '<a href="/history/checkAsRead?idHistory='+ b.id +'">' +
                          '<img id="avatar" src="https://gravatar.com/avatar/'+ calcMD5(b.author.email) +'?d=mm" style="height:30px; width:30px;" class="img-polaroid" />' +
-                         '<span> ' + dia +'/' + m + '/' + y + '</span><br/>' +
+                         '<span> Caso: '+ b.idIssue + ' - ' + dia +'/' + m + '/' + y + '</span><br/>' +
                          '<span>' + b.author.fullName + '</span><br/>' +
                          '<span>' + shorten(b.comment,45) +'</span><br />' +
                        '</a>' +

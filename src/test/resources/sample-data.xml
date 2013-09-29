@@ -361,6 +361,18 @@
             <value description="reporter_id">-3</value>
             <value description="status_id">5</value>
         </row>
+        <row>
+            <value description="id">5</value>
+            <value description="description">Pushing</value>
+            <value description="expectedDate">2013-10-05</value>
+            <value description="summary">Verificar possibilidade de adicionar um pushing para as notificações</value>
+            <value description="activity_id">1</value>
+            <value description="assigned_id">-4</value>
+            <value description="departament_id">1</value>
+            <value description="project_id">1</value>
+            <value description="reporter_id">-3</value>
+            <value description="status_id">1</value>
+        </row>
     </table>
     <table name="History">
         <column>id</column>

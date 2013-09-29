@@ -5,6 +5,7 @@ import br.tcc.webapp.model.Departament;
 import br.tcc.webapp.service.ActivityManager;
 import br.tcc.webapp.service.DepartamentManager;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -80,17 +81,22 @@ public class DepartamentFormController extends BaseFormController {
         String success = getSuccessView();
         Locale locale = request.getLocale();
 
-        if (request.getParameter("delete") != null) {
-            departamentManager.removeDepartament(departament.getId());
-            saveMessage(request, getText("departament.deleted", locale));
-        } else {
-            departamentManager.saveDepartament(departament);
-            String key = (isNew) ? "departament.added" : "departament.updated";
-            saveMessage(request, getText(key, locale));
+        try{
+            if (request.getParameter("delete") != null) {
+                departamentManager.removeDepartament(departament.getId());
+                saveMessage(request, getText("departament.deleted", locale));
+            } else {
+                departamentManager.saveDepartament(departament);
+                String key = (isNew) ? "departament.added" : "departament.updated";
+                saveMessage(request, getText(key, locale));
 
-            if (!isNew) {
-                success = "redirect:/admin/departamentform?id=" + departament.getId();
+                if (!isNew) {
+                    success = "redirect:/admin/departamentform?id=" + departament.getId();
+                }
             }
+        }
+        catch(ConstraintViolationException ex){
+            saveError(request, getText("item.cantbe.removed", locale));
         }
 
         return success;

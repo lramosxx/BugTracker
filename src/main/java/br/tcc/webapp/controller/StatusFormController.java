@@ -3,6 +3,7 @@ package br.tcc.webapp.controller;
 import br.tcc.webapp.model.Status;
 import br.tcc.webapp.service.StatusManager;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -68,17 +69,22 @@ public class StatusFormController extends BaseFormController  {
         String success = getSuccessView();
         Locale locale = request.getLocale();
 
-        if (request.getParameter("delete") != null) {
-            statusManager.removeStatus(status.getId());
-            saveMessage(request, getText("status.deleted", locale));
-        } else {
-            statusManager.saveStatus(status);
-            String key = (isNew) ? "status.added" : "status.updated";
-            saveMessage(request, getText(key, locale));
+        try{
+            if (request.getParameter("delete") != null) {
+                statusManager.removeStatus(status.getId());
+                saveMessage(request, getText("status.deleted", locale));
+            } else {
+                statusManager.saveStatus(status);
+                String key = (isNew) ? "status.added" : "status.updated";
+                saveMessage(request, getText(key, locale));
 
-            if (!isNew) {
-                success = "redirect:/admin/statusform?id=" + status.getId();
+                if (!isNew) {
+                    success = "redirect:/admin/statusform?id=" + status.getId();
+                }
             }
+        }
+        catch(ConstraintViolationException ex){
+            saveError(request, getText("item.cantbe.removed", locale));
         }
 
         return success;
