@@ -20,4 +20,6 @@ public interface HistoryDao extends GenericDao<History, Long> {
     void removeHistory(Long historyId);
 
     History saveHistory(History history);
+
+    List<History> getUnreadHistory(Long userId);
 }
