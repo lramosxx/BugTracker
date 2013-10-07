@@ -72,6 +72,6 @@ public class HistoryController {
         }
 
         request.setAttribute("id",idHistory);
-        response.sendRedirect("/issueform?id="+idHistory);
+        response.sendRedirect("/issueform?id="+hist.getIdIssue());
     }
 }
