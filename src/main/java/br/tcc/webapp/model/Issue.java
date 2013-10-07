@@ -2,6 +2,7 @@ package br.tcc.webapp.model;
 
 import org.appfuse.model.BaseObject;
 import org.appfuse.model.User;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 
 @Entity
+@Indexed
 public class Issue extends BaseObject {
 // ------------------------------ FIELDS ------------------------------
 

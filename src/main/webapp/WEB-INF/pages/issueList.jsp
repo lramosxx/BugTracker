@@ -107,7 +107,7 @@
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="dropNotify">
                 <fmt:message key="history.notify"/> <span id="qtd" class="badge"></span> <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" role="menu" style="margin-top:10px; max-width: 400px;" id="notifyItem">
+            <ul class="dropdown-menu" role="menu" style="margin-top:10px; max-width: 400px;min-width:200px;" id="notifyItem">
 
             </ul>
         </div>
