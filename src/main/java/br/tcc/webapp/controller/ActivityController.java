@@ -61,7 +61,7 @@ public class ActivityController {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
-        response.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("ISO-8859-1");
 
         return new ResponseEntity<String>(json, responseHeaders, HttpStatus.CREATED);
 

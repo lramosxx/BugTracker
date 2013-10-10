@@ -34,9 +34,14 @@
                 <a class="brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a>
                 <%@ include file="/common/menu.jsp" %>
                 <b><span id="userName" style="float:right;margin-right:20px;">${pageContext.request.remoteUser}</span></b><br/>
-                <c:if test="${pageContext.request.locale.language ne 'en'}">
-                    <div id="switchLocale"><a href="<c:url value='/?locale=en'/>">
+                <c:if test='${sessionScope["org.apache.struts2.action.LOCALE"] eq "pt_BR"}'>
+                    <div id="switchLocale"><a href="<c:url value='/?locale='/>">
                         <fmt:message key="webapp.name"/> in English</a>
+                    </div>
+                </c:if>
+                <c:if test="${sessionScope['org.apache.struts2.action.LOCALE'] eq ''}">
+                    <div id="switchLocale"><a href="<c:url value='/?locale=pt_BR'/>">
+                        <fmt:message key="webapp.name"/> em Portugu&#234;s</a>
                     </div>
                 </c:if>
             </div>
