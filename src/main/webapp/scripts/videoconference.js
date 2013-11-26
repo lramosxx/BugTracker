@@ -85,8 +85,8 @@
         VideoChat.prototype.createDivForVideo = function (title, id) {
             var videoDiv;
             console.log("Creating div for title '", title, "' and id '", id, "'");
-            videoDiv = $('<div id="parent_' + id + '"/>').addClass("videoContainer");
-            videoDiv.append($('<div id="' + id + '"/>').addClass("videoTokBoxItem"));
+            videoDiv = $('<div id="parent_' + id + '" style="float:left; padding-right: 10px;"/>').addClass("videoContainer");
+            videoDiv.append($('<div id="' + id + '" style="border: 1px solid rgb(80, 80, 80);"/>').addClass("videoTokBoxItem"));
             videoDiv.append($('<h5>' + title + '</h5>'));
             this.mainDiv.append(videoDiv);
             return videoDiv;
@@ -116,7 +116,7 @@
         VideoChat.prototype.startPublishing = function () {
             var publisherDiv;
             if (!(this.publisher != null)) {
-                publisherDiv = this.createDivForVideo("You", "opentok_publisher");
+                publisherDiv = this.createDivForVideo("Eu", "opentok_publisher");
                 return this.publisher = this.session.publish("opentok_publisher");
             }
         };

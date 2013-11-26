@@ -4,15 +4,15 @@
 </head>
 
 
-<div class="span10">
-    <h2>
+<div class="span12">
+    <h2 class="offset1">
         <fmt:message key='issue.videoConference'>
             <fmt:param value="${issue.id}"/>
             <fmt:param value="${issue.summary}"/>
         </fmt:message>
     </h2>
 
-    <div id="${issue.id}" name="${issue.id}"></div>
+    <div id="${issue.id}" name="${issue.id}" class="offset3"></div>
     <br>
     <br>
 

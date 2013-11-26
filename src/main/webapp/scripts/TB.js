@@ -3345,8 +3345,8 @@
                 }
             }
 
-            container.style.width = width ? width : "264px";
-            container.style.height = height ? height : "198px";
+            container.style.width = width ? width : "400px";
+            container.style.height = height ? height : "400px";
             container.style.overflow = "hidden";
 
             if (properties.mirror === undefined || properties.mirror) OT.$.addClass(container, 'OT_mirrored');
